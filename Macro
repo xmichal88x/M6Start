@@ -118,6 +118,6 @@ def close_collect():
 # Podprogramy curtain_up, curtain_down i inne pozostają bez zmian...
 # (Zostały pominięte tutaj dla czytelności, ale są identyczne jak wcześniej.)
 
-# Uruchomienie programu, jeśli jest wywoływany jako główny skrypt
+# Uruchomienie  programu, jeśli jest wywoływany jako główny skrypt
 if __name__ == "__main__":
     main()
