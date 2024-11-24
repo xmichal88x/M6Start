@@ -243,6 +243,73 @@ def close_collect():
     print("Uchwyt narzędzia zamknięty.")
     return True
 
+def open_magazine():
+    """
+    Otwiera magazyn narzędzi.
+    - Otwiera osłonę pionową i poziomą.
+    - Sprawdza czujniki otwarcia osłon.
+    """
+    print("Rozpoczynam otwieranie magazynu...")
+
+    # Otwórz osłonę pionową
+    print("Otwieram osłonę pionową...")
+    set_digital_output(OUT_MAGAZINE_OPEN, True)
+    time.sleep(0.25)
+    set_digital_output(OUT_MAGAZINE_OPEN, False)
+
+    start_time = time.time()
+    while not get_digital_input(IN_OslonaPionOpen):
+        if time.time() - start_time > 5:
+            print("Błąd: Osłona pionowa nie otworzyła się.")
+            return False
+        time.sleep(0.1)
+
+    # Otwórz osłonę poziomą
+    print("Otwieram osłonę poziomą...")
+    start_time = time.time()
+    while not get_digital_input(IN_OslonaPozOpen):
+        if time.time() - start_time > 5:
+            print("Błąd: Osłona pozioma nie otworzyła się.")
+            return False
+        time.sleep(0.1)
+
+    print("Magazyn został otwarty.")
+    return True
+
+
+def close_magazine():
+    """
+    Zamyka magazyn narzędzi.
+    - Zamykana jest osłona pionowa i pozioma.
+    - Sprawdza czujniki zamknięcia osłon.
+    """
+    print("Rozpoczynam zamykanie magazynu...")
+
+    # Zamknij osłonę poziomą
+    print("Zamykam osłonę poziomą...")
+    set_digital_output(OUT_MAGAZINE_CLOSE, True)
+    time.sleep(0.25)
+    set_digital_output(OUT_MAGAZINE_CLOSE, False)
+
+    start_time = time.time()
+    while not get_digital_input(IN_OslonaPozClose):
+        if time.time() - start_time > 5:
+            print("Błąd: Osłona pozioma nie zamknęła się.")
+            return False
+        time.sleep(0.1)
+
+    # Zamknij osłonę pionową
+    print("Zamykam osłonę pionową...")
+    start_time = time.time()
+    while not get_digital_input(IN_OslonaPionClose):
+        if time.time() - start_time > 5:
+            print("Błąd: Osłona pionowa nie zamknęła się.")
+            return False
+        time.sleep(0.1)
+
+    print("Magazyn został zamknięty.")
+    return True
+
 # Uruchomienie programu, jeśli jest wywoływany jako główny skrypt
 if __name__ == "__main__":
     main()
