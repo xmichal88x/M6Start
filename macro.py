@@ -152,29 +152,6 @@ def aggregate_down():
     print("Agregat opuszczony.")
     return True
 
-def open_collect():
-    """
-    Otwiera uchwyt narzędzia.
-    - Wysyła sygnał otwarcia uchwytu.
-    - Sprawdza czujnik potwierdzający otwarcie uchwytu.
-    - W programie głównym należy sprawdzić, czy uchwyt jest pusty.
-    """
-    print("Rozpoczynam otwieranie uchwytu narzędzia...")
-    set_digital_output(OUT_COLLECT_OPEN, True)
-    time.sleep(0.25)
-    set_digital_output(OUT_COLLECT_OPEN, False)
-
-    start_time = time.time()
-    while not get_digital_input(IN_COLLECT_OPEN):
-        if time.time() - start_time > 5:
-            print("Błąd: Uchwyt narzędzia nie otworzył się.")
-            return False
-        time.sleep(0.1)
-
-    print("Uchwyt narzędzia otwarty.")
-    return True
-
-
 def activate_tool_change_position():
     """
     Aktywuje pozycję wymiany narzędzia.
