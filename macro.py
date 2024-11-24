@@ -91,7 +91,6 @@ def curtain_up():
     print("Szczotka podniesiona.")
     return True
 
-
 def curtain_down():
     """
     Opuszcza szczotkę.
@@ -111,7 +110,6 @@ def curtain_down():
         time.sleep(0.1)
     print("Szczotka opuszczona.")
     return True
-
 
 def aggregate_up():
     """
@@ -240,7 +238,6 @@ def close_collect():
 
     print("Uchwyt narzędzia zamknięty.")
     return True
-
 
 # Uruchomienie programu, jeśli jest wywoływany jako główny skrypt
 if __name__ == "__main__":
