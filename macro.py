@@ -26,6 +26,7 @@ msg_tool_dropoff        = "OK - ATC - Old tool dropped off"
 msg_m6_end              = "OK - ATC - M6 successful"
 msg_noprobe             = "INFO - ATC - Tool probing aborted, tool number in exception list"
 msg_unknow_tool         = "Nieznane narzędzie w uchwycie"
+msg_magazine            = "Brak miejsca w magazynie narzędzi"
 msg_axes_referenced     = "f"Oś {axis} nie jest zbazowana! Uruchom proces bazowania.""
 
 
@@ -129,9 +130,8 @@ if getPinStatus(IN_TOOL_INSIDE) == True:
     d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
     d.waitForMotionEnd()
     # Sprawdź, czy jest wolne miejsce w magazynie narzędziowym
-
-    
-
+    if not get_digital_input(IN_NarzedzieWMagazynie):
+    throwMessage(msg_magazine, "exit")
 
 
 
