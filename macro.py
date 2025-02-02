@@ -27,6 +27,7 @@ msg_m6_end              = "OK - ATC - M6 successful"
 msg_noprobe             = "INFO - ATC - Tool probing aborted, tool number in exception list"
 msg_unknow_tool         = "Nieznane narzędzie w uchwycie"
 msg_magazine            = "Brak miejsca w magazynie narzędzi"
+msg_magazine_get        = "Brak narzędzia w magazynie narzędzi"
 msg_axes_referenced     = "f"Oś {axis} nie jest zbazowana! Uruchom proces bazowania.""
 
 
@@ -167,6 +168,7 @@ if tool_old_id > 0:
 if tool_new_id > 0:
     if get_digital_input(IN_TOOL_INSIDE):
         throwMessage("msg_tool_unload_error, "exit")
+        
     # podnieś Agregat 1
     aggregate_up()
 
@@ -175,6 +177,8 @@ if tool_new_id > 0:
     machine_pos[X] = X_BASE + (X_TOOLOFFSET * (tool_new_id - 1))
     d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
     d.waitForMotionEnd()
+    if get_digital_input(IN_NarzedzieWMagazynie):
+        throwMessage(msg_magazine_get, "exit")
     
     
 
