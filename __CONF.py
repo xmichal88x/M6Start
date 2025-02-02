@@ -26,6 +26,8 @@ IN_OslonaPozClose = 11         # Czujnik zamknięcia osłony poziomej
 IN_AGREGAT1_UP = 3             # Czujnik górnej pozycji agregatu A1
 IN_AGREGAT1_Down = 4           # Czujnik dolnej pozycji agregatu A1
 IN_NarzedzieWMagazynie = 14    # Czujnik obecności narzędzia w magazynie
+IN_PRESSURE = 999                # Czujnik ciśnienia (active when ok)
+
 
 #-----------------------------------------------------------
 #  Deklaracja zmiennych globalnych
@@ -39,6 +41,16 @@ Y_LOCK = 1914.8           # Y pozycja do blokowania narzędzia w uchwycie
 X_BASE = 436.55           # X pozycja pierwszego narzędzia
 X_TOOLOFFSET = 143.0      # Odległość między narzędziami
 TOOLCOUNT = 6             # Maksymalna liczba narzędzi
+
+feed_atc_z_final    = 800           # Z feed before reaching tool
+feed_atc_z_fast     = 2500          # Z feed general
+feed_atc_xy         = 2500          # XY feed in general 
+
+# config
+conf_atc_purge_time = 0.5           # purge time in sec
+conf_tools_special  = {0}           # No automatic tool change 
+conf_tools_noprobe  = {0,10}        # No automatic length probing 
+conf_pause_debounce = 0.5           # debounce time for tool clamp close before checking sensor
 
 #-----------------------------------------------------------
 # Axis allocation
