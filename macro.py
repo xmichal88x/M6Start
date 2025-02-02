@@ -166,7 +166,18 @@ if tool_old_id > 0:
 # if a number > 0 was selected
 if tool_new_id > 0:
     if get_digital_input(IN_TOOL_INSIDE):
-    throwMessage("msg_tool_unload_error, "exit")
+        throwMessage("msg_tool_unload_error, "exit")
+    # podnieś Agregat 1
+    aggregate_up()
+
+    # Sprawdź, czy narzędzie jest w magazynie narzędzi
+    machine_pos[Y] = Y_FORSLIDE
+    machine_pos[X] = X_BASE + (X_TOOLOFFSET * (tool_new_id - 1))
+    d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
+    d.waitForMotionEnd()
+    
+    
+
  
     
 
