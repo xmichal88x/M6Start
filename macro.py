@@ -146,6 +146,8 @@ if get_digital_input(IN_TOOL_INSIDE):
     set_digital_output(OUT_CLEANCONE , True)
     time.sleep(0.25)
     set_digital_output(OUT_CURTAIN_UP, False)
+    machine_pos[Z] = Z_SAFE
+    d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
     
     
 
