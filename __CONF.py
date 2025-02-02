@@ -28,6 +28,19 @@ IN_AGREGAT1_Down = 4           # Czujnik dolnej pozycji agregatu A1
 IN_NarzedzieWMagazynie = 14    # Czujnik obecności narzędzia w magazynie
 
 #-----------------------------------------------------------
+#  Deklaracja zmiennych globalnych
+#-----------------------------------------------------------
+
+Z_TOOLGET = -88           # Z pozycja (absolutna) pobierania/zwalniania narzędzia
+Z_LIFT = 10               # Odległość unoszenia do czyszczenia stożka
+Z_SAFE = -10              # Bezpieczna Z do poruszania się nad uchwytami narzędzi
+Y_FORSLIDE = 1764.8       # Y pozycja przed wsunięciem narzędzia do uchwytu
+Y_LOCK = 1914.8           # Y pozycja do blokowania narzędzia w uchwycie
+X_BASE = 436.55           # X pozycja pierwszego narzędzia
+X_TOOLOFFSET = 143.0      # Odległość między narzędziami
+TOOLCOUNT = 6             # Maksymalna liczba narzędzi
+
+#-----------------------------------------------------------
 # Axis allocation
 #-----------------------------------------------------------
 
