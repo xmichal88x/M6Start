@@ -117,7 +117,7 @@ activate_tool_change_position()
 open_magazine()
 
 # move to safe Z 
-machine_pos[Z] =  move_atc_z_safe
+machine_pos[Z] =  Z_SAFE
 d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
 
 # if a tool is in spindle, go and drop that first
