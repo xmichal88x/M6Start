@@ -139,6 +139,15 @@ if get_digital_input(IN_TOOL_INSIDE):
     d.waitForMotionEnd()
     machine_pos[Y] = Y_LOCK
     d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
+    d.waitForMotionEnd()
+    # otwórz uchwyt
+    open_collect()
+    # czyszczenie stożka
+    set_digital_output(OUT_CLEANCONE , True)
+    time.sleep(0.25)
+    set_digital_output(OUT_CURTAIN_UP, False)
+    
+    
 
     
 
