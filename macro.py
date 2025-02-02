@@ -120,8 +120,11 @@ open_magazine()
 machine_pos[Z] =  Z_SAFE
 d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
 
+#-----------------------------------------------------------
 # if a tool is in spindle, go and drop that first
 # if there is no tool in spindle, skip this part
+#-----------------------------------------------------------
+
 if get_digital_input(IN_TOOL_INSIDE):
     # move to the toolholder
     # Obliczenie nowej pozycji na podstawie ToolOld
@@ -155,8 +158,10 @@ if get_digital_input(IN_TOOL_INSIDE):
     # close clamping and write message    
     set_digital_output(OUT_CLEANCONE, False)
     throwMessage(msg_tool_dropoff, "")
-    
-    
+
+#-----------------------------------------------------------
+# Pobierz nowe narzędzie
+#-----------------------------------------------------------
 
     
 
