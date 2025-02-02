@@ -179,6 +179,14 @@ if tool_new_id > 0:
     d.waitForMotionEnd()
     if get_digital_input(IN_NarzedzieWMagazynie):
         throwMessage(msg_magazine_get, "exit")
+
+    # przejedź do pozycji nowego narzędzia
+    machine_pos[Y] = Y_LOCK
+    machine_pos[X] = X_BASE + (X_TOOLOFFSET * (tool_new_id - 1))
+    d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
+    d.waitForMotionEnd()
+
+    Code ("G0G53 Y" & Y_LOCK & " X" & (X_BASE + (X_TOOLOFFSET * (ToolNew - 1))))
     
     
 
