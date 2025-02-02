@@ -6,6 +6,88 @@ timezone = time.localtime()
 
 mode = "debug" # normal or debug (for more info output)
 
+#-----------------------------------------------------------
+# Check status of pin 
+#-----------------------------------------------------------
+
+msg_air_warning         = "ERR - ATC - air pressure too low"
+msg_clamp_error         = "ERR - ATC - Clamp could not be opened"
+msg_clamp_error_close	= "ERR - ATC - Clamp could not be closed"
+msg_spindle_error       = "ERR - ATC - Spindle still spinning" 
+msg_old_equal_new       = "INF - ATC - New tool equal to old tool. M6 aborted"
+msg_tool_out_range      = "ERR - ATC - Selected tool out of range"
+msg_tool_unload_error   = "ERR - ATC - Could not unload tool"
+msg_tool_load_error     = "ERR - ATC - Could not load tool" 
+msg_ref_error           = "ERR - ATC - Axis not referenced"
+msg_tool_zero           = "ERR - ATC - Tool zero cannot be called"
+msg_tool_count          = "ERR - ATC - Tool number out of range"
+msg_tool_special        = "ERR - ATC - Special tool, not available for auto tool change"
+msg_tool_dropoff        = "OK - ATC - Old tool dropped off"
+msg_m6_end              = "OK - ATC - M6 successful"
+msg_noprobe             = "INFO - ATC - Tool probing aborted, tool number in exception list"
+msg_axes_referenced     = "f"Oś {axis} nie jest zbazowana! Uruchom proces bazowania."
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# FUNCTION to throw message in py status line and optionally end program 
+# Args: message(string), action(boolean)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def throwMessage(message, action):
+
+    ttime = time.strftime("%H:%M:%S", timezone)
+    print("\n"  + ttime + " - " + message)
+
+    if message == True: 
+        
+        msg.info("\n"  + ttime + " - " + message)
+
+    if action == "exit":
+        sys.exit(0)
+
+#-----------------------------------------------------------
+# Prep
+#-----------------------------------------------------------
+
+# Store some info for later use
+tool_old_id     =  d.getSpindleToolNumber()
+tool_new_id     =  d.getSelectedToolNumber()
+tool_new_len    =  d.getToolLength(tool_new_id)
+machine_pos     =  d.getPosition(CoordMode.Machine)
+
+
+# if debug is enabled, output some helpful information
+if mode == "debug":
+    print(f"{tool_old_id}  -> {tool_new_id}")
+
+#-----------------------------------------------------------
+# Perform pre-checks
+#-----------------------------------------------------------
+
+# exit if axes not referenced
+required_axes = [0, 1, 2]  # Sprawdzamy X, Y, Z
+    for axis in required_axes:
+        if not is_axis_referenced(axis):
+            throwMessage(msg_tool_special, "exit")   
+
+# exit if tool is in exception list for auto-tool-change 
+if tool_new_id in conf_tools_special:
+    throwMessage(msg_tool_special, "exit")   
+
+# exit if air pressure is too low 
+if getPinStatus(IN_PRESSURE) == False:  
+    throwMessage(msg_air_warning, "exit")
+
+# exit if tool is already in spindle
+if tool_old_id == tool_new_id: 
+    throwMessage(msg_old_equal_new, "exit")
+
+# exit on tool zero
+if tool_new_id == 0: 
+    throwMessage(msg_tool_zero, "exit") 
+
+# exit if tool is out of range
+if tool_new_id > TOOLCOUNT:
+    throwMessage(msg_tool_count, "exit") 	 
+
 
 # Główna funkcja programu
 def main():
