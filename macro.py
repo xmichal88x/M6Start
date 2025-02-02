@@ -25,7 +25,7 @@ msg_tool_special        = "ERR - ATC - Special tool, not available for auto tool
 msg_tool_dropoff        = "OK - ATC - Old tool dropped off"
 msg_m6_end              = "OK - ATC - M6 successful"
 msg_noprobe             = "INFO - ATC - Tool probing aborted, tool number in exception list"
-msg_axes_referenced     = "f"Oś {axis} nie jest zbazowana! Uruchom proces bazowania."
+msg_axes_referenced     = "f"Oś {axis} nie jest zbazowana! Uruchom proces bazowania.""
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # FUNCTION to throw message in py status line and optionally end program 
@@ -66,7 +66,7 @@ if mode == "debug":
 required_axes = [0, 1, 2]  # Sprawdzamy X, Y, Z
     for axis in required_axes:
         if not is_axis_referenced(axis):
-            throwMessage(msg_tool_special, "exit")   
+            throwMessage(msg_axes_referenced, "exit")   
 
 # exit if tool is in exception list for auto-tool-change 
 if tool_new_id in conf_tools_special:
@@ -88,25 +88,41 @@ if tool_new_id == 0:
 if tool_new_id > TOOLCOUNT:
     throwMessage(msg_tool_count, "exit") 	 
 
-
+#-----------------------------------------------------------
 # Główna funkcja programu
-def main():
-    """
-    Główna logika programu:
-    1. Podnieś szczotkę.
-    2. Aktywuj pozycję wymiany.
-    3. Opuść agregat.
-    4. Otwórz uchwyt narzędzia.
-    5. Sprawdź, czy uchwyt jest pusty (brak narzędzia).
-    6. Zamknij uchwyt narzędzia.
-    7. Sprawdź, czy narzędzie znajduje się w uchwycie.
-    8. Opuść szczotkę.
-    9. Zakończ program.
-    """
-    print("Uruchamianie programu...")
+#-----------------------------------------------------------
 
-    curtain_up()
-    activate_tool_change_position()
+def main():
+
+# ignore softlimits
+d.ignoreAllSoftLimits(True)
+
+# Spindle off
+d.setSpindleState(SpindleState.OFF)
+
+# Curtain up 
+curtain_up()
+
+# Aktywuj pozycję wymiany
+activate_tool_change_position()
+
+# Otwórz mgazyn narzędzi
+open_magazine()
+
+# move to safe Z 
+machine_pos[Z] =  move_atc_z_safe
+d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
+
+# if a tool is in spindle, go and drop that first
+
+
+
+
+
+
+
+    
+    
     aggregate_down()
 
     open_collect()
