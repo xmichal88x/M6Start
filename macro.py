@@ -129,9 +129,11 @@ if get_digital_input(IN_TOOL_INSIDE):
     machine_pos[Y] = Y_FORSLIDE
     d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
     d.waitForMotionEnd()
+    
     # Sprawdź, czy jest wolne miejsce w magazynie narzędziowym
     if not get_digital_input(IN_NarzedzieWMagazynie):
     throwMessage(msg_magazine, "exit")
+    
     # opuść Agregat 1
     aggregate_down()
     machine_pos[Z] = Z_TOOLGET
@@ -140,13 +142,16 @@ if get_digital_input(IN_TOOL_INSIDE):
     machine_pos[Y] = Y_LOCK
     d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
     d.waitForMotionEnd()
+    
     # otwórz uchwyt
     open_collect()
+    
     # czyszczenie stożka
     set_digital_output(OUT_CLEANCONE , True)
     machine_pos[Z] = Z_SAFE
     d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
     d.waitForMotionEnd()
+    
     # close clamping and write message    
     set_digital_output(OUT_CLEANCONE, False)
     throwMessage(msg_tool_dropoff, "")
