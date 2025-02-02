@@ -1,4 +1,6 @@
-# Konfiguracja wejść i wyjść
+#-----------------------------------------------------------
+# Ports & Pins 
+#-----------------------------------------------------------
 
 # Sekcja wyjść (sterowanie)
 OUT_CURTAIN_UP = 9             # Wyjście do podnoszenia szczotki
@@ -24,3 +26,13 @@ IN_OslonaPozClose = 11         # Czujnik zamknięcia osłony poziomej
 IN_AGREGAT1_UP = 3             # Czujnik górnej pozycji agregatu A1
 IN_AGREGAT1_Down = 4           # Czujnik dolnej pozycji agregatu A1
 IN_NarzedzieWMagazynie = 14    # Czujnik obecności narzędzia w magazynie
+
+#-----------------------------------------------------------
+# Axis allocation
+#-----------------------------------------------------------
+
+X = 0
+Y = 1
+Z = 2
+A = 3
+C = 5
