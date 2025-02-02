@@ -1,19 +1,19 @@
 import time
 from simcnc_api import d, IOPortDir, DIOPinVal  # Import API SimCNC
 
-
 # Konfiguracja wejść i wyjść
 
 # Sekcja wyjść (sterowanie)
 OUT_CURTAIN_UP = 9             # Wyjście do podnoszenia szczotki
 OUT_CURTAIN_DOWN = 8           # Wyjście do opuszczania szczotki
 OUT_AGGREGATE_UP = 7           # Wyjście do podnoszenia agregatu
+OUT_CLEANCONE = 12             # Czyszczenie stożka
 OUT_AGGREGATE_DOWN = 6         # Wyjście do opuszczania agregatu
-OUT_TOOL_CHANGE_POS = 10       # Wyjście do aktywacji pozycji wymiany narzędzia
-OUT_COLLECT_OPEN = 12          # Wyjście do otwierania uchwytu narzędzia
-OUT_COLLECT_CLOSE = 13         # Wyjście do zamykania uchwytu narzędzia
-OUT_MAGAZINE_OPEN = 16         # Wyjście do otwierania magazynu
-OUT_MAGAZINE_CLOSE = 17        # Wyjście do zamykania magazynu
+OUT_TOOL_CHANGE_POS = 2        # Wyjście do aktywacji pozycji wymiany narzędzia
+OUT_COLLECT_OPEN = 10          # Wyjście do otwierania uchwytu narzędzia
+OUT_COLLECT_CLOSE = 11         # Wyjście do zamykania uchwytu narzędzia
+OUT_MAGAZINE_OPEN = 4          # Wyjście do otwierania magazynu
+OUT_MAGAZINE_CLOSE = 5         # Wyjście do zamykania magazynu
 
 # Sekcja wejść (czujniki)
 IN_COLLET_OPENED = 13          # Czujnik otwarcia uchwytu narzędzia
@@ -27,25 +27,6 @@ IN_OslonaPozClose = 11         # Czujnik zamknięcia osłony poziomej
 IN_AGREGAT1_UP = 3             # Czujnik górnej pozycji agregatu A1
 IN_AGREGAT1_Down = 4           # Czujnik dolnej pozycji agregatu A1
 IN_NarzedzieWMagazynie = 14    # Czujnik obecności narzędzia w magazynie
-
-# Konfiguracja wejść i wyjść
-OUT_CURTAIN_UP = 9             # Wyjście do podnoszenia szczotki
-OUT_CURTAIN_DOWN = 8           # Wyjście do opuszczania szczotki
-IN_CURTAIN_UP = 6              # Czujnik pozycji górnej szczotki
-IN_CURTAIN_DOWN = 5            # Czujnik pozycji dolnej szczotki
-
-OUT_AGGREGATE_UP = 7           # Wyjście do podnoszenia agregatu
-OUT_AGGREGATE_DOWN = 6         # Wyjście do opuszczania agregatu
-IN_AGGREGATE_UP = 4            # Czujnik pozycji górnej agregatu
-IN_AGGREGATE_DOWN = 3          # Czujnik pozycji dolnej agregatu
-
-OUT_TOOL_CHANGE_POS = 10       # Wyjście do aktywacji pozycji wymiany narzędzia
-IN_TOOL_SENSOR = 11            # Czujnik obecności narzędzia w uchwycie
-
-OUT_COLLECT_OPEN = 12          # Wyjście do otwierania uchwytu narzędzia
-OUT_COLLECT_CLOSE = 13         # Wyjście do zamykania uchwytu narzędzia
-IN_COLLECT_OPEN = 14           # Czujnik potwierdzający otwarcie uchwytu
-IN_COLLECT_CLOSE = 15          # Czujnik potwierdzający zamknięcie uchwytu
 
 # Główna funkcja programu
 def main():
@@ -69,19 +50,7 @@ def main():
 
     open_collect()
 
-    # Sprawdzenie, czy uchwyt jest pusty
-    # if not get_digital_input(IN_TOOL_SENSOR):
-    #     print("Uchwyt jest pusty (brak narzędzia).")
-    # else:
-    #     print("Błąd: Narzędzie nadal w uchwycie.")
-
     close_collect()
-
-    # Sprawdzenie, czy narzędzie znajduje się w uchwycie
-    # if get_digital_input(IN_TOOL_SENSOR):
-    #     print("Narzędzie znajduje się w uchwycie.")
-    # else:
-    #     print("Błąd: Narzędzie nie zostało uchwycone.")
 
     curtain_down()
     deactivate_tool_change_position()
@@ -313,4 +282,3 @@ def close_magazine():
 # Uruchomienie programu, jeśli jest wywoływany jako główny skrypt
 if __name__ == "__main__":
     main()
-
