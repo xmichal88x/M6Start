@@ -122,7 +122,7 @@ d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
 
 # if a tool is in spindle, go and drop that first
 # if there is no tool in spindle, skip this part
-if getPinStatus(IN_TOOL_INSIDE) == True:
+if get_digital_input(IN_TOOL_INSIDE):
     # move to the toolholder
     # Obliczenie nowej pozycji na podstawie ToolOld
     machine_pos[X] = X_BASE + (X_TOOLOFFSET * (tool_old_id - 1))
@@ -132,7 +132,15 @@ if getPinStatus(IN_TOOL_INSIDE) == True:
     # Sprawdź, czy jest wolne miejsce w magazynie narzędziowym
     if not get_digital_input(IN_NarzedzieWMagazynie):
     throwMessage(msg_magazine, "exit")
+    # opuść Agregat 1
+    aggregate_down()
+    machine_pos[Z] = Z_TOOLGET
+    d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
+    d.waitForMotionEnd()
+    machine_pos[Y] = Y_LOCK
+    d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
 
+    
 
 
 
