@@ -25,7 +25,9 @@ msg_tool_special        = "ERR - ATC - Special tool, not available for auto tool
 msg_tool_dropoff        = "OK - ATC - Old tool dropped off"
 msg_m6_end              = "OK - ATC - M6 successful"
 msg_noprobe             = "INFO - ATC - Tool probing aborted, tool number in exception list"
+msg_unknow_tool         = "Nieznane narzędzie w uchwycie"
 msg_axes_referenced     = "f"Oś {axis} nie jest zbazowana! Uruchom proces bazowania.""
+
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # FUNCTION to throw message in py status line and optionally end program 
@@ -87,6 +89,10 @@ if tool_new_id == 0:
 # exit if tool is out of range
 if tool_new_id > TOOLCOUNT:
     throwMessage(msg_tool_count, "exit") 	 
+
+# exit if unknown tool in the holder
+if ToolOld == 0 and get_digital_input(IN_TOOLINSIDE):
+    throwMessage("msg_unknow_tool, "exit")
 
 #-----------------------------------------------------------
 # Główna funkcja programu
