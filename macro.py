@@ -228,6 +228,29 @@ if tool_new_id > 0:
     d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
     d.waitForMotionEnd()
 
+    # przejedź do bezpiecznej pozycji Z 
+    machine_pos[Z] = Z_SAFE
+    d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
+
+#-----------------------------------------------------------
+# Finish up and provide information to simCNC 
+#-----------------------------------------------------------
+
+# Set new tool in simCNC 
+d.setToolLength (tool_new_id, tool_new_length)
+d.setToolOffsetNumber(tool_new_id)
+d.setSpindleToolNumber(tool_new_id)
+
+# Przywrócenie softlimitów
+d.ignoreAllSoftLimits(False)
+print("Softlimity przywrócone.")
+
+# Dezaktywuje pozycję wymiany
+deactivate_tool_change_position()
+
+
+
+
     
 
     
