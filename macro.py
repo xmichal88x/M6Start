@@ -35,14 +35,12 @@ msg_axes_referenced     = "f"Oś {axis} nie jest zbazowana! Uruchom proces bazow
 # FUNCTION to throw message in py status line and optionally end program 
 # Args: message(string), action(boolean)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-def throwMessage(message, action):
+def throwMessage(message, action=None):
 
     ttime = time.strftime("%H:%M:%S", timezone)
     print("\n"  + ttime + " - " + message)
-
-    if message == True: 
-        
-        msg.info("\n"  + ttime + " - " + message)
+    
+    msg.info("\n"  + ttime + " - " + message)  # To zawsze powinno działać
 
     if action == "exit":
         sys.exit(0)
@@ -69,9 +67,9 @@ if mode == "debug":
 
 # exit if axes not referenced
 required_axes = [0, 1, 2]  # Sprawdzamy X, Y, Z
-    for axis in required_axes:
-        if not is_axis_referenced(axis):
-            throwMessage(msg_axes_referenced, "exit")   
+for axis in required_axes:
+    if not is_axis_referenced(axis):
+        throwMessage(msg_axes_referenced, "exit")   
 
 # exit if tool is in exception list for auto-tool-change 
 if tool_new_id in conf_tools_special:
@@ -139,7 +137,7 @@ if tool_old_id > 0:
         
         # Sprawdź, czy jest wolne miejsce w magazynie narzędziowym
         if not get_digital_input(IN_NarzedzieWMagazynie):
-        throwMessage(msg_magazine, "exit")
+            throwMessage(msg_magazine, "exit")
         
         # opuść Agregat 1
         aggregate_down()
@@ -165,7 +163,7 @@ if tool_old_id > 0:
         close_collect()
         set_digital_output(OUT_CLEANCONE, False)
         aggregate_up()    
-        d.setSpindleToolNumber == 0
+        d.setSpindleToolNumber(0)
         throwMessage(msg_tool_dropoff, "")
 
 #-----------------------------------------------------------
