@@ -56,6 +56,7 @@ tool_old_id     =  d.getSpindleToolNumber()
 tool_new_id     =  d.getSelectedToolNumber()
 tool_new_len    =  d.getToolLength(tool_new_id)
 machine_pos     =  d.getPosition(CoordMode.Machine)
+spindle_speed   =  d.getSpindleSpeed()
 
 
 # if debug is enabled, output some helpful information
@@ -107,6 +108,8 @@ d.ignoreAllSoftLimits(True)
 
 # Spindle off
 d.setSpindleState(SpindleState.OFF)
+if spindle_speed > 0:
+    throwMessage(msg_spindle_error, "exit")
 
 # Curtain up 
 curtain_up()
