@@ -251,42 +251,6 @@ deactivate_tool_change_position()
 # Opuść szczotkę
 curtain_down()
 
-
-
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-
- 
-    
-
-
-
-
-    
-    
-    aggregate_down()
-
-    open_collect()
-
-    close_collect()
-
-    curtain_down()
-    deactivate_tool_change_position()
-
-    print("Program zakończony pomyślnie.")
-
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # FUNCTION to GET status of IO pin
 # Args: pin_in(int)
