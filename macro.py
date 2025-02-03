@@ -161,7 +161,8 @@ if tool_old_id > 0:
         # zamknij uchwyt, wyłącz czyszczenie stożka, podnieś agregat i wyświetl wiadomość
         close_collect()
         set_digital_output(OUT_CLEANCONE, False)
-        aggregate_up()        
+        aggregate_up()    
+        d.setSpindleToolNumber == 0
         throwMessage(msg_tool_dropoff, "")
 
 #-----------------------------------------------------------
@@ -173,7 +174,7 @@ if tool_new_id > 0:
     if get_digital_input(IN_TOOL_INSIDE):
         throwMessage("msg_tool_unload_error, "exit")
         
-    # podnieś Agregat 1
+    # podnieś Agregat
     aggregate_up()
 
     # Sprawdź, czy narzędzie jest w magazynie narzędzi
@@ -192,6 +193,26 @@ if tool_new_id > 0:
 
     # otwórz uchwyt
     open_collect()
+
+    # opuść Agregat
+    aggregate_down()
+
+    # załącz czyszczenie stożka
+    set_digital_output(OUT_CLEANCONE , True)
+    machine_pos[Z] = Z_TOOLGET + Z_LIFT
+    d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
+    machine_pos[Z] = Z_TOOLGET
+    d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
+    machine_pos[Z] = Z_TOOLGET + Z_LIFT
+    d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
+    machine_pos[Z] = Z_TOOLGET
+    d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_final)
+    
+    
+    
+    
+    
+    
     
 
     
