@@ -95,7 +95,7 @@ if tool_new_id > TOOLCOUNT:
 
 # exit if unknown tool in the holder
 if tool_old_id == 0 and get_digital_input(IN_TOOLINSIDE):
-    throwMessage("msg_unknow_tool, "exit")
+    throwMessage(msg_unknow_tool, "exit")
 
 #-----------------------------------------------------------
 # Główna funkcja programu
