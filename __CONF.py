@@ -3,6 +3,7 @@
 #-----------------------------------------------------------
 
 # Sekcja wyjść (sterowanie)
+OUT_HV_ENABLE = 0              # HV Enable (K814)
 OUT_RESET = 1                  # Wyjście reset
 OUT_CURTAIN_UP = 9             # Wyjście do podnoszenia szczotki
 OUT_CURTAIN_DOWN = 8           # Wyjście do opuszczania szczotki
