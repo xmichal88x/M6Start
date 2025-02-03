@@ -212,14 +212,35 @@ if tool_new_id > 0:
 
     print("Program zakończony pomyślnie.")
 
-# Funkcje pomocnicze
-def set_digital_output(pin, state):
-    """Ustawia stan wyjścia cyfrowego na sterowniku."""
-    d.setDigitalIO(pin, DIOPinVal.PinSet if state else DIOPinVal.PinReset)
-
-def get_digital_input(pin):
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# FUNCTION to GET status of IO pin
+# Args: pin_in(int)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def get_digital_input(pin_in):
     """Zwraca stan wejścia cyfrowego ze sterownika."""
-    return d.getDigitalIO(IOPortDir.InputPort, pin) == DIOPinVal.PinSet
+    csmio = d.getModule(ModuleType.IP, 0) 
+
+    if pin_in is None:  # Ignore
+        return None
+
+    return csmio.getDigitalIO(IOPortDir.InputPort, pin_in) == DIOPinVal.PinSet
+        
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# FUNCTION to SET status of IO pin
+# Args: pin_out(int), state(boolean)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def set_digital_output(pin_out, state):
+    """Ustawia stan wyjścia cyfrowego na sterowniku."""
+    state2 = DIOPinVal.PinSet if state else DIOPinVal.PinReset
+
+    if pin_out is None:  # Ignore "none"
+        return None
+    try:
+        csmio = d.getModule(ModuleType.IP, 0)
+        csmio.setDigitalIO(pin_out, state2)
+    except NameError:
+        print("------------------\nBłąd: Digital Output został błędnie zdefiniowany")
+
 
 # Podprogramy
 def curtain_up():
