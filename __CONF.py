@@ -3,6 +3,7 @@
 #-----------------------------------------------------------
 
 # Sekcja wyjść (sterowanie)
+OUT_RESET = 1                  # Wyjście reset
 OUT_CURTAIN_UP = 9             # Wyjście do podnoszenia szczotki
 OUT_CURTAIN_DOWN = 8           # Wyjście do opuszczania szczotki
 OUT_AGGREGATE_UP = 7           # Wyjście do podnoszenia agregatu
