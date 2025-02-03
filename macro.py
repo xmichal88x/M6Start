@@ -248,6 +248,9 @@ print("Softlimity przywrócone.")
 # Dezaktywuje pozycję wymiany
 deactivate_tool_change_position()
 
+# Opuść szczotkę
+curtain_down()
+
 
 
 
