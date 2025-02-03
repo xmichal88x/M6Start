@@ -207,6 +207,21 @@ if tool_new_id > 0:
     d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
     machine_pos[Z] = Z_TOOLGET
     d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_final)
+    d.waitForMotionEnd()
+
+    # zamknij uchwyt i wyłącz czyszczenie stożka
+    set_digital_output(OUT_CLEANCONE, False)
+    close_collect()
+    
+    time.sleep(conf_pause_debounce)
+
+    # exit if no tool was picked up 
+    if not get_digital_input(IN_TOOL_INSIDE):
+        throwMessage(msg_tool_load_error, "exit")
+
+    
+
+    
     
     
     
