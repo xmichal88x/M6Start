@@ -173,7 +173,7 @@ if tool_old_id > 0:
 # if a number > 0 was selected
 if tool_new_id > 0:
     if get_digital_input(IN_TOOL_INSIDE):
-        throwMessage("msg_tool_unload_error, "exit")
+        throwMessage(msg_tool_unload_error, "exit")
         
     # podnieś Agregat
     aggregate_up()
