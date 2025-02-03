@@ -152,13 +152,16 @@ if tool_old_id > 0:
         
         # załącz czyszczenie stożka
         set_digital_output(OUT_CLEANCONE , True)
+
+        # odjedź na bezpieczną pozycję osi Z
         machine_pos[Z] = Z_SAFE
         d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
         d.waitForMotionEnd()
         
-        # close collect and write message
+        # zamknij uchwyt, wyłącz czyszczenie stożka, podnieś agregat i wyświetl wiadomość
         close_collect()
         set_digital_output(OUT_CLEANCONE, False)
+        aggregate_up()        
         throwMessage(msg_tool_dropoff, "")
 
 #-----------------------------------------------------------
