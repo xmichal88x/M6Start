@@ -5,16 +5,17 @@
 # Sekcja wyjść (sterowanie)
 OUT_HV_ENABLE = 0              # HV Enable (K814)
 OUT_RESET = 1                  # Wyjście reset
-OUT_CURTAIN_UP = 9             # Wyjście do podnoszenia szczotki
-OUT_CURTAIN_DOWN = 8           # Wyjście do opuszczania szczotki
-OUT_AGGREGATE_UP = 7           # Wyjście do podnoszenia agregatu
-OUT_CLEANCONE = 12             # Czyszczenie stożka
-OUT_AGGREGATE_DOWN = 6         # Wyjście do opuszczania agregatu
 OUT_TOOL_CHANGE_POS = 2        # Wyjście do aktywacji pozycji wymiany narzędzia
-OUT_COLLECT_OPEN = 10          # Wyjście do otwierania uchwytu narzędzia
-OUT_COLLECT_CLOSE = 11         # Wyjście do zamykania uchwytu narzędzia
+OUT_ENABLE = 3                 # Enable, Hamulec osi Z
 OUT_MAGAZINE_OPEN = 4          # Wyjście do otwierania magazynu
 OUT_MAGAZINE_CLOSE = 5         # Wyjście do zamykania magazynu
+OUT_AGGREGATE_DOWN = 6         # Wyjście do opuszczania agregatu
+OUT_AGGREGATE_UP = 7           # Wyjście do podnoszenia agregatu
+OUT_CURTAIN_DOWN = 8           # Wyjście do opuszczania szczotki
+OUT_CURTAIN_UP = 9             # Wyjście do podnoszenia szczotki
+OUT_COLLECT_OPEN = 10          # Wyjście do otwierania uchwytu narzędzia
+OUT_COLLECT_CLOSE = 11         # Wyjście do zamykania uchwytu narzędzia
+OUT_CLEANCONE = 12             # Czyszczenie stożka
 
 # Sekcja wejść (czujniki)
 IN_COLLET_OPENED = 13          # Czujnik otwarcia uchwytu narzędzia
