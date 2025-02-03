@@ -206,6 +206,10 @@ if tool_new_id > 0:
     machine_pos[Z] = Z_TOOLGET + Z_LIFT
     d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
     machine_pos[Z] = Z_TOOLGET
+    d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
+    machine_pos[Z] = Z_TOOLGET + Z_LIFT
+    d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
+    machine_pos[Z] = Z_TOOLGET
     d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_final)
     d.waitForMotionEnd()
 
@@ -218,6 +222,11 @@ if tool_new_id > 0:
     # exit if no tool was picked up 
     if not get_digital_input(IN_TOOL_INSIDE):
         throwMessage(msg_tool_load_error, "exit")
+
+    # wyjedź poza uchwyt narzędzia
+    machine_pos[Y] = Y_FORSLIDE
+    d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
+    d.waitForMotionEnd()
 
     
 
