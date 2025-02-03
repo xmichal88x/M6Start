@@ -150,13 +150,14 @@ if tool_old_id > 0:
         # otwórz uchwyt
         open_collect()
         
-        # czyszczenie stożka
+        # załącz czyszczenie stożka
         set_digital_output(OUT_CLEANCONE , True)
         machine_pos[Z] = Z_SAFE
         d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
         d.waitForMotionEnd()
         
-        # close clamping and write message    
+        # close collect and write message
+        close_collect()
         set_digital_output(OUT_CLEANCONE, False)
         throwMessage(msg_tool_dropoff, "")
 
