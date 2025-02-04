@@ -28,7 +28,7 @@ msg_noprobe             = "INFO - ATC - Tool probing aborted, tool number in exc
 msg_unknow_tool         = "Nieznane narzędzie w uchwycie"
 msg_magazine            = "Brak miejsca w magazynie narzędzi"
 msg_magazine_get        = "Brak narzędzia w magazynie narzędzi"
-msg_axes_referenced     = f"Oś {axis} nie jest zbazowana! Uruchom proces bazowania."
+# msg_axes_referenced     = f"Oś {axis} nie jest zbazowana! Uruchom proces bazowania."
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -69,6 +69,7 @@ if mode == "debug":
 required_axes = [0, 1, 2]  # Sprawdzamy X, Y, Z
 for axis in required_axes:
     if not is_axis_referenced(axis):
+        msg_axes_referenced = f"Oś {axis} nie jest zbazowana! Uruchom proces bazowania."
         throwMessage(msg_axes_referenced, "exit")   
 
 # exit if tool is in exception list for auto-tool-change 
