@@ -26,10 +26,10 @@ IN_OslonaPionOpen = 7          # Czujnik otwarcia osłony pionowej
 IN_OslonaPionClose = 8         # Czujnik zamknięcia osłony pionowej
 IN_OslonaPozOpen = 9           # Czujnik otwarcia osłony poziomej
 IN_OslonaPozClose = 11         # Czujnik zamknięcia osłony poziomej
-IN_AGGREGATE_UP = 3             # Czujnik górnej pozycji agregatu A1
-IN_AGGREGATE_Down = 4           # Czujnik dolnej pozycji agregatu A1
+IN_AGGREGATE_UP = 3            # Czujnik górnej pozycji agregatu A1
+IN_AGGREGATE_DOWN = 4          # Czujnik dolnej pozycji agregatu A1
 IN_NarzedzieWMagazynie = 14    # Czujnik obecności narzędzia w magazynie
-IN_PRESSURE = 999                # Czujnik ciśnienia (active when ok)
+IN_PRESSURE = 999              # Czujnik ciśnienia (active when ok)
 
 
 #-----------------------------------------------------------
