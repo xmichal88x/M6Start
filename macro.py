@@ -137,7 +137,7 @@ if tool_old_id > 0:
         d.waitForMotionEnd()
         
         # Sprawdź, czy jest wolne miejsce w magazynie narzędziowym
-        if not get_digital_input(IN_NarzedzieWMagazynie):
+        if not get_digital_input(IN_Narzedzie_W_Magazynie):
             throwMessage(msg_magazine, "exit")
         
         # opuść Agregat 1
@@ -184,7 +184,7 @@ if tool_new_id > 0:
     machine_pos[X] = X_BASE + (X_TOOLOFFSET * (tool_new_id - 1))
     d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
     d.waitForMotionEnd()
-    if get_digital_input(IN_NarzedzieWMagazynie):
+    if get_digital_input(IN_Narzedzie_W_Magazynie):
         throwMessage(msg_magazine_get, "exit")
 
     # przejedź do pozycji nowego narzędzia
@@ -444,7 +444,7 @@ def open_magazine():
     set_digital_output(OUT_MAGAZINE_OPEN, False)
 
     start_time = time.time()
-    while not get_digital_input(IN_OslonaPionOpen):
+    while not get_digital_input(IN_Oslona_Pion_Open):
         if time.time() - start_time > 5:
             print("Błąd: Osłona pionowa nie otworzyła się.")
             return False
@@ -453,7 +453,7 @@ def open_magazine():
     # Otwórz osłonę poziomą
     print("Otwieram osłonę poziomą...")
     start_time = time.time()
-    while not get_digital_input(IN_OslonaPozOpen):
+    while not get_digital_input(IN_Oslona_Poz_Open):
         if time.time() - start_time > 5:
             print("Błąd: Osłona pozioma nie otworzyła się.")
             return False
@@ -478,7 +478,7 @@ def close_magazine():
     set_digital_output(OUT_MAGAZINE_CLOSE, False)
 
     start_time = time.time()
-    while not get_digital_input(IN_OslonaPozClose):
+    while not get_digital_input(IN_Oslona_Poz_Close):
         if time.time() - start_time > 5:
             print("Błąd: Osłona pozioma nie zamknęła się.")
             return False
@@ -487,7 +487,7 @@ def close_magazine():
     # Zamknij osłonę pionową
     print("Zamykam osłonę pionową...")
     start_time = time.time()
-    while not get_digital_input(IN_OslonaPionClose):
+    while not get_digital_input(IN_Oslona_Pion_Close):
         if time.time() - start_time > 5:
             print("Błąd: Osłona pionowa nie zamknęła się.")
             return False
