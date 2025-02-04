@@ -20,7 +20,7 @@ OUT_CLEANCONE = 12             # Czyszczenie stożka
 # Sekcja wejść (czujniki)
 IN_COLLET_OPENED = 13          # Czujnik otwarcia uchwytu narzędzia
 IN_TOOL_INSIDE = 12            # Czujnik obecności narzędzia w uchwycie
-IN_SzczotkaUp = 6              # Czujnik górnej pozycji szczotki
+IN_CURTAIN_UP = 6              # Czujnik górnej pozycji szczotki
 IN_SzczotkaDown = 5            # Czujnik dolnej pozycji szczotki
 IN_OslonaPionOpen = 7          # Czujnik otwarcia osłony pionowej
 IN_OslonaPionClose = 8         # Czujnik zamknięcia osłony pionowej
