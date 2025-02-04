@@ -150,7 +150,7 @@ if tool_old_id > 0:
         d.waitForMotionEnd()
         
         # otwórz uchwyt
-        open_collect()
+        open_collet()
         
         # załącz czyszczenie stożka
         set_digital_output(OUT_CLEANCONE , True)
@@ -161,7 +161,7 @@ if tool_old_id > 0:
         d.waitForMotionEnd()
         
         # zamknij uchwyt, wyłącz czyszczenie stożka, podnieś agregat i wyświetl wiadomość
-        close_collect()
+        close_collet()
         set_digital_output(OUT_CLEANCONE, False)
         aggregate_up()    
         d.setSpindleToolNumber(0)
@@ -194,7 +194,7 @@ if tool_new_id > 0:
     d.waitForMotionEnd()
 
     # otwórz uchwyt
-    open_collect()
+    open_collet()
 
     # opuść Agregat
     aggregate_down()
@@ -217,7 +217,7 @@ if tool_new_id > 0:
 
     # zamknij uchwyt i wyłącz czyszczenie stożka
     set_digital_output(OUT_CLEANCONE, False)
-    close_collect()
+    close_collet()
     
     time.sleep(conf_pause_debounce)
 
@@ -386,19 +386,19 @@ def deactivate_tool_change_position():
     print("Pozycja wymiany dezaktywowana.")
 
 
-def open_collect():
+def open_collet():
     """
     Otwiera uchwyt narzędzia.
     - Wysyła sygnał otwarcia uchwytu.
     - Sprawdza czujnik potwierdzający otwarcie uchwytu.
     """
     print("Rozpoczynam otwieranie uchwytu narzędzia...")
-    set_digital_output(OUT_COLLECT_OPEN, True)
+    set_digital_output(OUT_COLLET_OPEN, True)
     time.sleep(0.25)
-    set_digital_output(OUT_COLLECT_OPEN, False)
+    set_digital_output(OUT_COLLET_OPEN, False)
 
     start_time = time.time()
-    while not get_digital_input(IN_COLLECT_OPEN):
+    while not get_digital_input(IN_COLLET_OPEN):
         if time.time() - start_time > 5:
             print("Błąd: Uchwyt narzędzia nie otworzył się.")
             return False
@@ -407,7 +407,7 @@ def open_collect():
     print("Uchwyt narzędzia otwarty.")
     return True
 
-def close_collect():
+def close_collet():
     """
     Zamyka uchwyt narzędzia.
     - Wysyła sygnał zamknięcia uchwytu.
@@ -415,12 +415,12 @@ def close_collect():
     - W programie głównym należy sprawdzić, czy narzędzie znajduje się w uchwycie.
     """
     print("Rozpoczynam zamykanie uchwytu narzędzia...")
-    set_digital_output(OUT_COLLECT_CLOSE, True)
+    set_digital_output(OUT_COLLET_CLOSE, True)
     time.sleep(0.25)
-    set_digital_output(OUT_COLLECT_CLOSE, False)
+    set_digital_output(OUT_COLLET_CLOSE, False)
 
     start_time = time.time()
-    while not get_digital_input(IN_COLLECT_OPEN):
+    while not get_digital_input(IN_COLLET_OPEN):
         if time.time() - start_time > 5:
             print("Błąd: Uchwyt narzędzia nie zamknął się.")
             return False
