@@ -102,7 +102,7 @@ if tool_old_id == 0 and get_digital_input(IN_TOOLINSIDE):
 def main():
 
 # ignore softlimits
-d.ignoreAllSoftLimits(True)
+    d.ignoreAllSoftLimits(True)
 
 # Spindle off
 d.setSpindleState(SpindleState.OFF)
