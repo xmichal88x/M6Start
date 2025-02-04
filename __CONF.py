@@ -13,8 +13,8 @@ OUT_AGGREGATE_DOWN = 6         # Wyjście do opuszczania agregatu
 OUT_AGGREGATE_UP = 7           # Wyjście do podnoszenia agregatu
 OUT_CURTAIN_DOWN = 8           # Wyjście do opuszczania szczotki
 OUT_CURTAIN_UP = 9             # Wyjście do podnoszenia szczotki
-OUT_COLLET_OPEN = 10          # Wyjście do otwierania uchwytu narzędzia
-OUT_COLLET_CLOSE = 11         # Wyjście do zamykania uchwytu narzędzia
+OUT_COLLET_OPEN = 10           # Wyjście do otwierania uchwytu narzędzia
+OUT_COLLET_CLOSE = 11          # Wyjście do zamykania uchwytu narzędzia
 OUT_CLEANCONE = 12             # Czyszczenie stożka
 
 # Sekcja wejść (czujniki)
@@ -31,7 +31,21 @@ IN_AGGREGATE_DOWN = 4          # Czujnik dolnej pozycji agregatu A1
 IN_Narzedzie_W_Magazynie = 14  # Czujnik obecności narzędzia w magazynie
 IN_PRESSURE = 999              # Czujnik ciśnienia (active when ok)
 
+#-----------------------------------------------------------
+# External Module 0
+#-----------------------------------------------------------
 
+# WYJŚCIA 
+OUT_SECTION_1 = 0                # Wyjście Sekcji 1
+OUT_SECTION_2 = 1                # Wyjście Sekcji 2
+OUT_SECTION_3 = 2                # Wyjście Sekcji 3
+OUT_SECTION_4 = 3                # Wyjście Sekcji 4
+
+# WEJŚCIA
+IN_SECTION_1 = 0                # Przycisk Sekcji 1
+IN_SECTION_2 = 1                # Przycisk Sekcji 2
+IN_SECTION_3 = 2                # Przycisk Sekcji 3
+IN_SECTION_4 = 3                # Przycisk Sekcji 4
 #-----------------------------------------------------------
 #  Deklaracja zmiennych globalnych
 #-----------------------------------------------------------
