@@ -420,7 +420,7 @@ def close_collet():
     set_digital_output(OUT_COLLET_CLOSE, False)
 
     start_time = time.time()
-    while not get_digital_input(IN_COLLET_OPEN):
+    while get_digital_input(IN_COLLET_OPEN):
         if time.time() - start_time > 5:
             print("Błąd: Uchwyt narzędzia nie zamknął się.")
             return False
