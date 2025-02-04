@@ -13,8 +13,8 @@ OUT_AGGREGATE_DOWN = 6         # Wyjście do opuszczania agregatu
 OUT_AGGREGATE_UP = 7           # Wyjście do podnoszenia agregatu
 OUT_CURTAIN_DOWN = 8           # Wyjście do opuszczania szczotki
 OUT_CURTAIN_UP = 9             # Wyjście do podnoszenia szczotki
-OUT_COLLECT_OPEN = 10          # Wyjście do otwierania uchwytu narzędzia
-OUT_COLLECT_CLOSE = 11         # Wyjście do zamykania uchwytu narzędzia
+OUT_COLLET_OPEN = 10          # Wyjście do otwierania uchwytu narzędzia
+OUT_COLLET_CLOSE = 11         # Wyjście do zamykania uchwytu narzędzia
 OUT_CLEANCONE = 12             # Czyszczenie stożka
 
 # Sekcja wejść (czujniki)
