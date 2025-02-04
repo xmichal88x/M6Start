@@ -1,6 +1,9 @@
 from ___CONF import * 
 import time   
 import sys
+from simcnc import getDevice  # Import funkcji pobierającej urządzenie
+
+d = getDevice()  # Pobranie obiektu urządzenia SimCNC
 
 timezone = time.localtime() 
 
