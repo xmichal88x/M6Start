@@ -420,7 +420,7 @@ def close_collect():
     set_digital_output(OUT_COLLECT_CLOSE, False)
 
     start_time = time.time()
-    while not get_digital_input(IN_COLLECT_CLOSE):
+    while not get_digital_input(IN_COLLECT_OPEN):
         if time.time() - start_time > 5:
             print("Błąd: Uchwyt narzędzia nie zamknął się.")
             return False
