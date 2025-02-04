@@ -257,28 +257,42 @@ curtain_down()
 # FUNCTION to GET status of IO pin
 # Args: pin_in(int)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-def get_digital_input(pin_in):
-    """Zwraca stan wejścia cyfrowego ze sterownika."""
-    csmio = d.getModule(ModuleType.IP, 0) 
+def get_digital_input(pin_tuple):
+    """Odczytuje stan wejścia cyfrowego z odpowiedniego modułu."""
+    module_id, pin = pin_tuple  # Rozpakowanie wartości
+    
+    # Sprawdzenie, czy to główny sterownik CSMIO-IP
+    if module_id == MAIN_MODULE_ID:
+        csmio = d.getModule(ModuleType.IP, module_id)
+    else:  
+        # Jeśli to dodatkowy moduł, użyj ModuleType.IO
+        csmio = d.getModule(ModuleType.IO, module_id)
 
-    if pin_in is None:  # Ignore
+    if pin is None:
         return None
 
-    return csmio.getDigitalIO(IOPortDir.InputPort, pin_in) == DIOPinVal.PinSet
+    return csmio.getDigitalIO(IOPortDir.InputPort, pin) == DIOPinVal.PinSet
         
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # FUNCTION to SET status of IO pin
 # Args: pin_out(int), state(boolean)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-def set_digital_output(pin_out, state):
-    """Ustawia stan wyjścia cyfrowego na sterowniku."""
+def set_digital_output(pin_tuple, state):
+    """Ustawia stan wyjścia cyfrowego w odpowiednim module."""
+    module_id, pin = pin_tuple  # Rozpakowanie wartości
     state2 = DIOPinVal.PinSet if state else DIOPinVal.PinReset
 
-    if pin_out is None:  # Ignore "none"
+    # Sprawdzenie, czy to główny sterownik CSMIO-IP
+    if module_id == MAIN_MODULE_ID:
+        csmio = d.getModule(ModuleType.IP, module_id)
+    else:  
+        # Jeśli to dodatkowy moduł, użyj ModuleType.IO
+        csmio = d.getModule(ModuleType.IO, module_id)
+
+    if pin is None:
         return None
     try:
-        csmio = d.getModule(ModuleType.IP, 0)
-        csmio.setDigitalIO(pin_out, state2)
+        csmio.setDigitalIO(pin, state2)
     except NameError:
         print("------------------\nBłąd: Digital Output został błędnie zdefiniowany")
 
