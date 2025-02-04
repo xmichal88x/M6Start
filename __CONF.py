@@ -18,17 +18,17 @@ OUT_COLLECT_CLOSE = 11         # Wyjście do zamykania uchwytu narzędzia
 OUT_CLEANCONE = 12             # Czyszczenie stożka
 
 # Sekcja wejść (czujniki)
-IN_COLLET_OPENED = 13          # Czujnik otwarcia uchwytu narzędzia
+IN_COLLET_OPEN = 13            # Czujnik otwarcia uchwytu narzędzia
 IN_TOOL_INSIDE = 12            # Czujnik obecności narzędzia w uchwycie
 IN_CURTAIN_UP = 6              # Czujnik górnej pozycji szczotki
 IN_CURTAIN_DOWN = 5            # Czujnik dolnej pozycji szczotki
-IN_OslonaPionOpen = 7          # Czujnik otwarcia osłony pionowej
-IN_OslonaPionClose = 8         # Czujnik zamknięcia osłony pionowej
-IN_OslonaPozOpen = 9           # Czujnik otwarcia osłony poziomej
-IN_OslonaPozClose = 11         # Czujnik zamknięcia osłony poziomej
+IN_Oslona_Pion_Open = 7        # Czujnik otwarcia osłony pionowej
+IN_Oslona_Pion_Close = 8       # Czujnik zamknięcia osłony pionowej
+IN_Oslona_Poz_Open = 9         # Czujnik otwarcia osłony poziomej
+IN_Oslona_Poz_Close = 11       # Czujnik zamknięcia osłony poziomej
 IN_AGGREGATE_UP = 3            # Czujnik górnej pozycji agregatu A1
 IN_AGGREGATE_DOWN = 4          # Czujnik dolnej pozycji agregatu A1
-IN_NarzedzieWMagazynie = 14    # Czujnik obecności narzędzia w magazynie
+IN_Narzedzie_W_Magazynie = 14  # Czujnik obecności narzędzia w magazynie
 IN_PRESSURE = 999              # Czujnik ciśnienia (active when ok)
 
 
