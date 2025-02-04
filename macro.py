@@ -107,7 +107,7 @@ def main():
 
 # Spindle off
 d.setSpindleState(SpindleState.OFF)
-if spindle_speed > 0:
+if spindle_speed > 1:
     throwMessage(msg_spindle_error, "exit")
 
 # Curtain up 
