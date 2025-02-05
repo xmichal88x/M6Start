@@ -36,7 +36,7 @@ IN_Oslona_Poz_Close = (MAIN_MODULE_ID, 11)       # Czujnik zamknięcia osłony p
 IN_AGGREGATE_UP = (MAIN_MODULE_ID, 3)            # Czujnik górnej pozycji agregatu A1
 IN_AGGREGATE_DOWN = (MAIN_MODULE_ID, 4)          # Czujnik dolnej pozycji agregatu A1
 IN_Narzedzie_W_Magazynie = (MAIN_MODULE_ID, 14)  # Czujnik obecności narzędzia w magazynie
-IN_PRESSURE = (MAIN_MODULE_ID, 999)              # Czujnik ciśnienia (active when ok)
+IN_PRESSURE = (MAIN_MODULE_ID, 16)              # Czujnik ciśnienia (active when ok)
 
 #-----------------------------------------------------------
 # IO Module 0
