@@ -61,198 +61,6 @@ spindle_speed   =  d.getSpindleSpeed()
 if mode == "debug":
     print(f"{tool_old_id}  -> {tool_new_id}")
 
-#-----------------------------------------------------------
-# Perform pre-checks
-#-----------------------------------------------------------
-
-# exit if axes not referenced
-required_axes = [0, 1, 2]  # Sprawdzamy X, Y, Z
-for axis in required_axes:
-    if not is_axis_referenced(axis):
-        msg_axes_referenced = f"Oś {axis} nie jest zbazowana! Uruchom proces bazowania."
-        throwMessage(msg_axes_referenced, "exit")   
-
-# exit if tool is in exception list for auto-tool-change 
-if tool_new_id in conf_tools_special:
-    throwMessage(msg_tool_special, "exit")   
-
-# exit if air pressure is too low 
-if not get_digital_input(IN_PRESSURE):  
-    throwMessage(msg_air_warning, "exit")
-
-# exit if tool is already in spindle
-if tool_old_id == tool_new_id: 
-    throwMessage(msg_old_equal_new, "exit")
-
-# exit on tool zero
-if tool_new_id == 0: 
-    throwMessage(msg_tool_zero, "exit") 
-
-# exit if tool is out of range
-if tool_new_id > TOOLCOUNT:
-    throwMessage(msg_tool_count, "exit") 	 
-
-# exit if unknown tool in the holder
-if tool_old_id == 0 and get_digital_input(IN_TOOLINSIDE):
-    throwMessage(msg_unknow_tool, "exit")
-
-#-----------------------------------------------------------
-# Główna funkcja programu
-#-----------------------------------------------------------
-
-def main():
-
-# ignore softlimits
-    d.ignoreAllSoftLimits(True)
-
-# Spindle off
-d.setSpindleState(SpindleState.OFF)
-if spindle_speed > 1:
-    throwMessage(msg_spindle_error, "exit")
-
-# Curtain up 
-curtain_up()
-
-# Aktywuj pozycję wymiany
-activate_tool_change_position()
-
-# Otwórz mgazyn narzędzi
-open_magazine()
-
-# move to safe Z 
-machine_pos[Z] = Z_SAFE
-d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
-
-#-----------------------------------------------------------
-# if a tool is in spindle, go and drop that first
-# if there is no tool in spindle, skip this part
-#-----------------------------------------------------------
-if tool_old_id > 0:
-    if get_digital_input(IN_TOOL_INSIDE):
-        # move to the toolholder
-        # Obliczenie nowej pozycji na podstawie ToolOld
-        machine_pos[X] = X_BASE + (X_TOOLOFFSET * (tool_old_id - 1))
-        machine_pos[Y] = Y_FORSLIDE
-        d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
-        d.waitForMotionEnd()
-        
-        # Sprawdź, czy jest wolne miejsce w magazynie narzędziowym
-        if not get_digital_input(IN_Narzedzie_W_Magazynie):
-            throwMessage(msg_magazine, "exit")
-        
-        # opuść Agregat 1
-        aggregate_down()
-        machine_pos[Z] = Z_TOOLGET
-        d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
-        d.waitForMotionEnd()
-        machine_pos[Y] = Y_LOCK
-        d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
-        d.waitForMotionEnd()
-        
-        # otwórz uchwyt
-        open_collet()
-        
-        # załącz czyszczenie stożka
-        set_digital_output(OUT_CLEANCONE , True)
-
-        # odjedź na bezpieczną pozycję osi Z
-        machine_pos[Z] = Z_SAFE
-        d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
-        d.waitForMotionEnd()
-        
-        # zamknij uchwyt, wyłącz czyszczenie stożka, podnieś agregat i wyświetl wiadomość
-        close_collet()
-        set_digital_output(OUT_CLEANCONE, False)
-        aggregate_up()    
-        d.setSpindleToolNumber(0)
-        throwMessage(msg_tool_dropoff, "")
-
-#-----------------------------------------------------------
-# Pobierz nowe narzędzie
-#-----------------------------------------------------------
-
-# if a number > 0 was selected
-if tool_new_id > 0:
-    if get_digital_input(IN_TOOL_INSIDE):
-        throwMessage(msg_tool_unload_error, "exit")
-        
-    # podnieś Agregat
-    aggregate_up()
-
-    # Sprawdź, czy narzędzie jest w magazynie narzędzi
-    machine_pos[Y] = Y_FORSLIDE
-    machine_pos[X] = X_BASE + (X_TOOLOFFSET * (tool_new_id - 1))
-    d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
-    d.waitForMotionEnd()
-    if get_digital_input(IN_Narzedzie_W_Magazynie):
-        throwMessage(msg_magazine_get, "exit")
-
-    # przejedź do pozycji nowego narzędzia
-    machine_pos[Y] = Y_LOCK
-    machine_pos[X] = X_BASE + (X_TOOLOFFSET * (tool_new_id - 1))
-    d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
-    d.waitForMotionEnd()
-
-    # otwórz uchwyt
-    open_collet()
-
-    # opuść Agregat
-    aggregate_down()
-
-    # załącz czyszczenie stożka
-    set_digital_output(OUT_CLEANCONE , True)
-    machine_pos[Z] = Z_TOOLGET + Z_LIFT
-    d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
-    machine_pos[Z] = Z_TOOLGET
-    d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
-    machine_pos[Z] = Z_TOOLGET + Z_LIFT
-    d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
-    machine_pos[Z] = Z_TOOLGET
-    d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
-    machine_pos[Z] = Z_TOOLGET + Z_LIFT
-    d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
-    machine_pos[Z] = Z_TOOLGET
-    d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_final)
-    d.waitForMotionEnd()
-
-    # zamknij uchwyt i wyłącz czyszczenie stożka
-    set_digital_output(OUT_CLEANCONE, False)
-    close_collet()
-    
-    time.sleep(conf_pause_debounce)
-
-    # exit if no tool was picked up 
-    if not get_digital_input(IN_TOOL_INSIDE):
-        throwMessage(msg_tool_load_error, "exit")
-
-    # wyjedź poza uchwyt narzędzia
-    machine_pos[Y] = Y_FORSLIDE
-    d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
-    d.waitForMotionEnd()
-
-    # przejedź do bezpiecznej pozycji Z 
-    machine_pos[Z] = Z_SAFE
-    d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
-
-#-----------------------------------------------------------
-# Finish up and provide information to simCNC 
-#-----------------------------------------------------------
-
-# Set new tool in simCNC 
-d.setToolLength (tool_new_id, tool_new_length)
-d.setToolOffsetNumber(tool_new_id)
-d.setSpindleToolNumber(tool_new_id)
-
-# Przywrócenie softlimitów
-d.ignoreAllSoftLimits(False)
-print("Softlimity przywrócone.")
-
-# Dezaktywuje pozycję wymiany
-deactivate_tool_change_position()
-
-# Opuść szczotkę
-curtain_down()
-
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # FUNCTION to GET status of IO pin
 # Args: pin_in(int)
@@ -476,7 +284,6 @@ def open_magazine():
     print("Magazyn został otwarty.")
     return True
 
-
 def close_magazine():
     """
     Zamyka magazyn narzędzi.
@@ -509,6 +316,198 @@ def close_magazine():
 
     print("Magazyn został zamknięty.")
     return True
+
+#-----------------------------------------------------------
+# Perform pre-checks
+#-----------------------------------------------------------
+
+# exit if axes not referenced
+required_axes = [0, 1, 2]  # Sprawdzamy X, Y, Z
+for axis in required_axes:
+    if not is_axis_referenced(axis):
+        msg_axes_referenced = f"Oś {axis} nie jest zbazowana! Uruchom proces bazowania."
+        throwMessage(msg_axes_referenced, "exit")   
+
+# exit if tool is in exception list for auto-tool-change 
+if tool_new_id in conf_tools_special:
+    throwMessage(msg_tool_special, "exit")   
+
+# exit if air pressure is too low 
+if not get_digital_input(IN_PRESSURE):  
+    throwMessage(msg_air_warning, "exit")
+
+# exit if tool is already in spindle
+if tool_old_id == tool_new_id: 
+    throwMessage(msg_old_equal_new, "exit")
+
+# exit on tool zero
+if tool_new_id == 0: 
+    throwMessage(msg_tool_zero, "exit") 
+
+# exit if tool is out of range
+if tool_new_id > TOOLCOUNT:
+    throwMessage(msg_tool_count, "exit") 	 
+
+# exit if unknown tool in the holder
+if tool_old_id == 0 and get_digital_input(IN_TOOLINSIDE):
+    throwMessage(msg_unknow_tool, "exit")
+
+#-----------------------------------------------------------
+# Główna funkcja programu
+#-----------------------------------------------------------
+
+def main():
+    
+    # ignore softlimits
+    d.ignoreAllSoftLimits(True)
+    
+    # Spindle off
+    d.setSpindleState(SpindleState.OFF)
+    if spindle_speed > 1:
+        throwMessage(msg_spindle_error, "exit")
+    
+    # Curtain up 
+    curtain_up()
+    
+    # Aktywuj pozycję wymiany
+    activate_tool_change_position()
+    
+    # Otwórz mgazyn narzędzi
+    open_magazine()
+    
+    # move to safe Z 
+    machine_pos[Z] = Z_SAFE
+    d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
+    
+    #-----------------------------------------------------------
+    # if a tool is in spindle, go and drop that first
+    # if there is no tool in spindle, skip this part
+    #-----------------------------------------------------------
+    if tool_old_id > 0:
+        if get_digital_input(IN_TOOL_INSIDE):
+            # move to the toolholder
+            # Obliczenie nowej pozycji na podstawie ToolOld
+            machine_pos[X] = X_BASE + (X_TOOLOFFSET * (tool_old_id - 1))
+            machine_pos[Y] = Y_FORSLIDE
+            d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
+            d.waitForMotionEnd()
+            
+            # Sprawdź, czy jest wolne miejsce w magazynie narzędziowym
+            if not get_digital_input(IN_Narzedzie_W_Magazynie):
+                throwMessage(msg_magazine, "exit")
+            
+            # opuść Agregat 1
+            aggregate_down()
+            machine_pos[Z] = Z_TOOLGET
+            d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
+            d.waitForMotionEnd()
+            machine_pos[Y] = Y_LOCK
+            d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
+            d.waitForMotionEnd()
+            
+            # otwórz uchwyt
+            open_collet()
+            
+            # załącz czyszczenie stożka
+            set_digital_output(OUT_CLEANCONE , True)
+    
+            # odjedź na bezpieczną pozycję osi Z
+            machine_pos[Z] = Z_SAFE
+            d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
+            d.waitForMotionEnd()
+            
+            # zamknij uchwyt, wyłącz czyszczenie stożka, podnieś agregat i wyświetl wiadomość
+            close_collet()
+            set_digital_output(OUT_CLEANCONE, False)
+            aggregate_up()    
+            d.setSpindleToolNumber(0)
+            throwMessage(msg_tool_dropoff, "")
+    
+    #-----------------------------------------------------------
+    # Pobierz nowe narzędzie
+    #-----------------------------------------------------------
+    
+    # if a number > 0 was selected
+    if tool_new_id > 0:
+        if get_digital_input(IN_TOOL_INSIDE):
+            throwMessage(msg_tool_unload_error, "exit")
+            
+        # podnieś Agregat
+        aggregate_up()
+    
+        # Sprawdź, czy narzędzie jest w magazynie narzędzi
+        machine_pos[Y] = Y_FORSLIDE
+        machine_pos[X] = X_BASE + (X_TOOLOFFSET * (tool_new_id - 1))
+        d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
+        d.waitForMotionEnd()
+        if get_digital_input(IN_Narzedzie_W_Magazynie):
+            throwMessage(msg_magazine_get, "exit")
+    
+        # przejedź do pozycji nowego narzędzia
+        machine_pos[Y] = Y_LOCK
+        machine_pos[X] = X_BASE + (X_TOOLOFFSET * (tool_new_id - 1))
+        d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
+        d.waitForMotionEnd()
+    
+        # otwórz uchwyt
+        open_collet()
+    
+        # opuść Agregat
+        aggregate_down()
+    
+        # załącz czyszczenie stożka
+        set_digital_output(OUT_CLEANCONE , True)
+        machine_pos[Z] = Z_TOOLGET + Z_LIFT
+        d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
+        machine_pos[Z] = Z_TOOLGET
+        d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
+        machine_pos[Z] = Z_TOOLGET + Z_LIFT
+        d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
+        machine_pos[Z] = Z_TOOLGET
+        d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
+        machine_pos[Z] = Z_TOOLGET + Z_LIFT
+        d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
+        machine_pos[Z] = Z_TOOLGET
+        d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_final)
+        d.waitForMotionEnd()
+    
+        # zamknij uchwyt i wyłącz czyszczenie stożka
+        set_digital_output(OUT_CLEANCONE, False)
+        close_collet()
+        
+        time.sleep(conf_pause_debounce)
+    
+        # exit if no tool was picked up 
+        if not get_digital_input(IN_TOOL_INSIDE):
+            throwMessage(msg_tool_load_error, "exit")
+    
+        # wyjedź poza uchwyt narzędzia
+        machine_pos[Y] = Y_FORSLIDE
+        d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
+        d.waitForMotionEnd()
+    
+        # przejedź do bezpiecznej pozycji Z 
+        machine_pos[Z] = Z_SAFE
+        d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
+    
+    #-----------------------------------------------------------
+    # Finish up and provide information to simCNC 
+    #-----------------------------------------------------------
+    
+    # Set new tool in simCNC 
+    d.setToolLength (tool_new_id, tool_new_length)
+    d.setToolOffsetNumber(tool_new_id)
+    d.setSpindleToolNumber(tool_new_id)
+    
+    # Przywrócenie softlimitów
+    d.ignoreAllSoftLimits(False)
+    print("Softlimity przywrócone.")
+    
+    # Dezaktywuje pozycję wymiany
+    deactivate_tool_change_position()
+    
+    # Opuść szczotkę
+    curtain_down()
 
 # Uruchomienie programu, jeśli jest wywoływany jako główny skrypt
 if __name__ == "__main__":
