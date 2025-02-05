@@ -356,7 +356,7 @@ def main():
         throwMessage(msg_tool_count, "exit") 	 
     
     # exit if unknown tool in the holder
-    if tool_old_id == 0 and get_digital_input(IN_TOOLINSIDE):
+    if tool_old_id == 0 and get_digital_input(IN_TOOL_INSIDE):
         throwMessage(msg_unknow_tool, "exit")
     
     #-----------------------------------------------------------
