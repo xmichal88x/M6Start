@@ -61,9 +61,9 @@ IN_SECTION_4 = (IO_MODULE_ID, 3)                 # Przycisk Sekcji 4
 Z_TOOLGET = -88           # Z pozycja (absolutna) pobierania/zwalniania narzędzia
 Z_LIFT = 10               # Odległość unoszenia do czyszczenia stożka
 Z_SAFE = -10              # Bezpieczna Z do poruszania się nad uchwytami narzędzi
-Y_FORSLIDE = 1764.8       # Y pozycja przed wsunięciem narzędzia do uchwytu
-Y_LOCK = 1914.8           # Y pozycja do blokowania narzędzia w uchwycie
-X_BASE = 436.55           # X pozycja pierwszego narzędzia
+Y_FORSLIDE = 1765         # Y pozycja przed wsunięciem narzędzia do uchwytu
+Y_LOCK = 1915             # Y pozycja do blokowania narzędzia w uchwycie
+X_BASE = 460              # X pozycja pierwszego narzędzia
 X_TOOLOFFSET = 143.0      # Odległość między narzędziami
 TOOLCOUNT = 6             # Maksymalna liczba narzędzi
 
