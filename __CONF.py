@@ -6,10 +6,10 @@ MAIN_MODULE_ID = 0  # Główny sterownik CSMIO-IP
 IO_MODULE_ID = 0  # Pierwszy dodatkowy moduł wejść/wyjść CSMIO-IO
 
 # -----------------------------------------------------------
-# Wyjścia cyfrowe (CSMIO-IP - główny moduł)
+# IO CSMIO-IP - główny moduł
 # -----------------------------------------------------------
 
-# Sekcja wyjść (sterowanie)
+# WYJŚCIA
 OUT_HV_ENABLE = (MAIN_MODULE_ID, 0)              # HV Enable (K814)
 OUT_RESET = (MAIN_MODULE_ID, 1)                  # Wyjście reset
 OUT_TOOL_CHANGE_POS = (MAIN_MODULE_ID, 2)        # Wyjście do aktywacji pozycji wymiany narzędzia
@@ -24,7 +24,7 @@ OUT_COLLET_OPEN = (MAIN_MODULE_ID, 10)           # Wyjście do otwierania uchwyt
 OUT_COLLET_CLOSE = (MAIN_MODULE_ID, 11)          # Wyjście do zamykania uchwytu narzędzia
 OUT_CLEANCONE = (MAIN_MODULE_ID, 12)             # Czyszczenie stożka
 
-# Sekcja wejść (czujniki)
+# WEJŚCIA
 IN_COLLET_OPEN = (MAIN_MODULE_ID, 13)            # Czujnik otwarcia uchwytu narzędzia 1==True
 IN_TOOL_INSIDE = (MAIN_MODULE_ID, 12)            # Czujnik obecności narzędzia w uchwycie 1==True
 IN_CURTAIN_UP = (MAIN_MODULE_ID, 6)              # Czujnik górnej pozycji szczotki
@@ -36,7 +36,7 @@ IN_Oslona_Poz_Close = (MAIN_MODULE_ID, 11)       # Czujnik zamknięcia osłony p
 IN_AGGREGATE_UP = (MAIN_MODULE_ID, 3)            # Czujnik górnej pozycji agregatu A1
 IN_AGGREGATE_DOWN = (MAIN_MODULE_ID, 4)          # Czujnik dolnej pozycji agregatu A1
 IN_Narzedzie_W_Magazynie = (MAIN_MODULE_ID, 14)  # Czujnik obecności narzędzia w magazynie
-IN_PRESSURE = (MAIN_MODULE_ID, 16)              # Czujnik ciśnienia (active when ok)
+IN_PRESSURE = (MAIN_MODULE_ID, 16)               # Czujnik ciśnienia (active when ok)
 
 #-----------------------------------------------------------
 # IO Module 0
