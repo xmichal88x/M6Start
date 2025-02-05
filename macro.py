@@ -109,9 +109,10 @@ def set_digital_output(pin_tuple, state):
 # Podprogramy
 def check_axes_referenced():
     """Sprawdza, czy osie są zbazowane. Jeśli nie, wyświetla listę i kończy program."""
+    axis_to_check = [Axis.X, Axis.Y, Axis.Z]
     not_referenced_axes = []  # Lista na niezreferowane osie
 
-    for axis in AXES_TO_CHECK:  # Pobiera listę osi z `___CONF.py`
+    for axis in axis_to_check:  # Pobiera listę osi z `___CONF.py`
         if not d.isAxisReferenced(axis):
             not_referenced_axes.append(axis)  # Dodajemy niezreferowaną oś
 
