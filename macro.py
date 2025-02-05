@@ -336,42 +336,40 @@ def close_magazine():
 # Perform pre-checks
 #-----------------------------------------------------------
 
-# exit if axes not referenced
-axis_to_check = [Axis.X, Axis.Y, Axis.Z]  # Sprawdzamy X, Y, Z
-for axis in axis_to_check:
-    if not d.isAxisReferenced(axis):
-        msg_axes_referenced = f"Oś {axis.name} nie jest zbazowana! Uruchom proces bazowania."
-        throwMessage(msg_axes_referenced, "exit")   
-
-# exit if tool is in exception list for auto-tool-change 
-if tool_new_id in conf_tools_special:
-    throwMessage(msg_tool_special, "exit")   
-
-# exit if air pressure is too low 
-if not get_digital_input(IN_PRESSURE):  
-    throwMessage(msg_air_warning, "exit")
-
-# exit if tool is already in spindle
-if tool_old_id == tool_new_id: 
-    throwMessage(msg_old_equal_new, "exit")
-
-# exit on tool zero
-if tool_new_id == 0: 
-    throwMessage(msg_tool_zero, "exit") 
-
-# exit if tool is out of range
-if tool_new_id > TOOLCOUNT:
-    throwMessage(msg_tool_count, "exit") 	 
-
-# exit if unknown tool in the holder
-if tool_old_id == 0 and get_digital_input(IN_TOOLINSIDE):
-    throwMessage(msg_unknow_tool, "exit")
-
-#-----------------------------------------------------------
-# Główna funkcja programu
-#-----------------------------------------------------------
-
 def main():
+
+    # exit if axes not referenced
+    check_axes_referenced()
+    
+    # exit if tool is in exception list for auto-tool-change 
+    if tool_new_id in conf_tools_special:
+        throwMessage(msg_tool_special, "exit")   
+    
+    # exit if air pressure is too low 
+    if not get_digital_input(IN_PRESSURE):  
+        throwMessage(msg_air_warning, "exit")
+    
+    # exit if tool is already in spindle
+    if tool_old_id == tool_new_id: 
+        throwMessage(msg_old_equal_new, "exit")
+    
+    # exit on tool zero
+    if tool_new_id == 0: 
+        throwMessage(msg_tool_zero, "exit") 
+    
+    # exit if tool is out of range
+    if tool_new_id > TOOLCOUNT:
+        throwMessage(msg_tool_count, "exit") 	 
+    
+    # exit if unknown tool in the holder
+    if tool_old_id == 0 and get_digital_input(IN_TOOLINSIDE):
+        throwMessage(msg_unknow_tool, "exit")
+    
+    #-----------------------------------------------------------
+    # Główna funkcja programu
+    #-----------------------------------------------------------
+
+
     
     # ignore softlimits
     d.ignoreAllSoftLimits(True)
