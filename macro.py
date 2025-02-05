@@ -374,8 +374,6 @@ def main():
     #-----------------------------------------------------------
     # Główna funkcja programu
     #-----------------------------------------------------------
-
-
     
     # ignore softlimits
     d.ignoreAllSoftLimits(True)
