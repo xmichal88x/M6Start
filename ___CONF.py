@@ -64,7 +64,7 @@ Z_SAFE = -10              # Bezpieczna Z do poruszania się nad uchwytami narzę
 Y_FORSLIDE = 1765         # Y pozycja przed wsunięciem narzędzia do uchwytu
 Y_LOCK = 1915             # Y pozycja do blokowania narzędzia w uchwycie
 X_BASE = 460              # X pozycja pierwszego narzędzia
-X_TOOLOFFSET = 143.0      # Odległość między narzędziami
+X_TOOLOFFSET = 143.0      # Odległość między narzędziami (2575mm)
 TOOLCOUNT = 6             # Maksymalna liczba narzędzi
 
 feed_atc_z_final    = 800           # Z feed before reaching tool
