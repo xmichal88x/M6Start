@@ -91,4 +91,4 @@ C = 5
 # Lista osi do sprawdzania bazowania
 #-----------------------------------------------------------
 
-AXES_TO_CHECK = [X, Y, Z]
+# AXES_TO_CHECK = [X, Y, Z]
