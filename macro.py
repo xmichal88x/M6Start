@@ -220,7 +220,6 @@ def deactivate_tool_change_position():
 def open_collet():
     """
     Otwiera uchwyt narzędzia.
-    - Wysyła sygnał otwarcia uchwytu.
     - Sprawdza czujnik potwierdzający otwarcie uchwytu.
     """
     print("Rozpoczynam otwieranie uchwytu narzędzia...")
@@ -241,9 +240,7 @@ def open_collet():
 def close_collet():
     """
     Zamyka uchwyt narzędzia.
-    - Wysyła sygnał zamknięcia uchwytu.
     - Sprawdza czujnik potwierdzający zamknięcie uchwytu.
-    - W programie głównym należy sprawdzić, czy narzędzie znajduje się w uchwycie.
     """
     print("Rozpoczynam zamykanie uchwytu narzędzia...")
     set_digital_output(OUT_COLLET_CLOSE, True)
@@ -266,14 +263,13 @@ def open_magazine():
     - Otwiera osłonę pionową i poziomą.
     - Sprawdza czujniki otwarcia osłon.
     """
-    print("Rozpoczynam otwieranie magazynu...")
-
-    # Otwórz osłonę pionową
-    print("Otwieram osłonę pionową...")
+    # Otwórz osłonę pionową i poziomą
+    print("Otwieram magazyn...")
     set_digital_output(OUT_MAGAZINE_OPEN, True)
     time.sleep(0.25)
     set_digital_output(OUT_MAGAZINE_OPEN, False)
-
+    
+    # Sprawdź osłonę pionową
     start_time = time.time()
     while not get_digital_input(IN_Oslona_Pion_Open):
         if time.time() - start_time > 5:
@@ -281,8 +277,7 @@ def open_magazine():
             return False
         time.sleep(0.1)
 
-    # Otwórz osłonę poziomą
-    print("Otwieram osłonę poziomą...")
+    # Sprawdź osłonę poziomą
     start_time = time.time()
     while not get_digital_input(IN_Oslona_Poz_Open):
         if time.time() - start_time > 5:
@@ -299,14 +294,14 @@ def close_magazine():
     - Zamykana jest osłona pionowa i pozioma.
     - Sprawdza czujniki zamknięcia osłon.
     """
-    print("Rozpoczynam zamykanie magazynu...")
+    print("Zamykanie magazynu...")
 
     # Zamknij osłonę poziomą
-    print("Zamykam osłonę poziomą...")
     set_digital_output(OUT_MAGAZINE_CLOSE, True)
     time.sleep(0.25)
     set_digital_output(OUT_MAGAZINE_CLOSE, False)
 
+    # Sprawdź osłonę poziomą
     start_time = time.time()
     while not get_digital_input(IN_Oslona_Poz_Close):
         if time.time() - start_time > 5:
@@ -314,8 +309,7 @@ def close_magazine():
             return False
         time.sleep(0.1)
 
-    # Zamknij osłonę pionową
-    print("Zamykam osłonę pionową...")
+    # Sprawdź osłonę pionową
     start_time = time.time()
     while not get_digital_input(IN_Oslona_Pion_Close):
         if time.time() - start_time > 5:
