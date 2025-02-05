@@ -10,25 +10,24 @@ mode = "debug" # normal or debug (for more info output)
 # Check status of pin 
 #-----------------------------------------------------------
 
-msg_air_warning         = "ERR - ATC - air pressure too low"
-msg_clamp_error         = "ERR - ATC - Clamp could not be opened"
-msg_clamp_error_close	= "ERR - ATC - Clamp could not be closed"
-msg_spindle_error       = "⚠️ ERR - ATC - Spindle still spinning" 
-msg_old_equal_new       = "INF - ATC - New tool equal to old tool. M6 aborted"
-msg_tool_out_range      = "ERR - ATC - Selected tool out of range"
-msg_tool_unload_error   = "ERR - ATC - Could not unload tool"
-msg_tool_load_error     = "ERR - ATC - Could not load tool" 
-msg_ref_error           = "ERR - ATC - Axis not referenced"
-msg_tool_zero           = "ERR - ATC - Tool zero cannot be called"
-msg_tool_count          = "ERR - ATC - Tool number out of range"
-msg_tool_special        = "ERR - ATC - Special tool, not available for auto tool change"
-msg_tool_dropoff        = "OK - ATC - Old tool dropped off"
-msg_m6_end              = "OK - ATC - M6 successful"
-msg_noprobe             = "INFO - ATC - Tool probing aborted, tool number in exception list"
-msg_unknow_tool         = "Nieznane narzędzie w uchwycie"
-msg_magazine            = "Brak miejsca w magazynie narzędzi"
-msg_magazine_get        = "Brak narzędzia w magazynie narzędzi"
-# msg_axes_referenced     = f"Oś {axis} nie jest zbazowana! Uruchom proces bazowania."
+msg_air_warning         = "🔴 ERR - ATC - air pressure too low"
+msg_clamp_error         = "🔴 ERR - ATC - Clamp could not be opened"
+msg_clamp_error_close	= "🔴 ERR - ATC - Clamp could not be closed"
+msg_spindle_error       = "🔴 ERR - ATC - Spindle still spinning" 
+msg_old_equal_new       = "ℹ️ ATC - New tool equal to old tool. M6 aborted"
+msg_tool_out_range      = "🔴 ERR - ATC - Selected tool out of range"
+msg_tool_unload_error   = "🔴 ERR - ATC - Could not unload tool"
+msg_tool_load_error     = "🔴 ERR - ATC - Could not load tool" 
+msg_ref_error           = "🔴 ERR - ATC - Axis not referenced"
+msg_tool_zero           = "🔴 ERR - ATC - Tool zero cannot be called"
+msg_tool_count          = "🔴 ERR - ATC - Tool number out of range"
+msg_tool_special        = "🔴 ERR - ATC - Special tool, not available for auto tool change"
+msg_tool_dropoff        = "✅ ATC - Old tool dropped off"
+msg_m6_end              = "✅ ATC - M6 successful"
+msg_noprobe             = "ℹ️ ATC - Tool probing aborted, tool number in exception list"
+msg_unknow_tool         = "⚠️ Nieznane narzędzie w uchwycie"
+msg_magazine            = "⚠️ Brak miejsca w magazynie narzędzi"
+msg_magazine_get        = "⚠️ Brak narzędzia w magazynie narzędzi"
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -105,8 +104,10 @@ def set_digital_output(pin_tuple, state):
     except NameError:
         print("------------------\nBłąd: Digital Output został błędnie zdefiniowany")
 
+#-----------------------------------------------------------
+# Lista programów
+#-----------------------------------------------------------
 
-# Podprogramy
 def check_axes_referenced():
     axis_to_check = [Axis.X, Axis.Y, Axis.Z]
     not_referenced_axes = []  # Lista na niezreferowane osie
@@ -117,7 +118,7 @@ def check_axes_referenced():
 
     # Jeśli są niezreferowane osie, zgłoś błąd
     if not_referenced_axes:
-        msg_axes_referenced = f"Osi(e) {', '.join([str(axis) for axis in not_referenced_axes])} nie są zbazowane! Uruchom proces bazowania."
+        msg_axes_referenced = f"🔴 Osi(e) {', '.join([str(axis) for axis in not_referenced_axes])} nie są zbazowane! Uruchom proces bazowania."
         throwMessage(msg_axes_referenced, "exit")
 
 def curtain_up():
