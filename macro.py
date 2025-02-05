@@ -107,6 +107,19 @@ def set_digital_output(pin_tuple, state):
 
 
 # Podprogramy
+def check_axes_referenced():
+    """Sprawdza, czy osie są zbazowane. Jeśli nie, wyświetla listę i kończy program."""
+    not_referenced_axes = []  # Lista na niezreferowane osie
+
+    for axis in AXES_TO_CHECK:  # Pobiera listę osi z `___CONF.py`
+        if not d.isAxisReferenced(axis):
+            not_referenced_axes.append(axis)  # Dodajemy niezreferowaną oś
+
+    # Jeśli są niezreferowane osie, zgłoś błąd
+    if not_referenced_axes:
+        msg_axes_referenced = f"Osi(e) {', '.join([str(axis) for axis in not_referenced_axes])} nie są zbazowane! Uruchom proces bazowania."
+        throwMessage(msg_axes_referenced, "exit")
+
 def curtain_up():
     """
     Podnosi szczotkę.
@@ -323,10 +336,10 @@ def close_magazine():
 #-----------------------------------------------------------
 
 # exit if axes not referenced
-required_axes = [0, 1, 2]  # Sprawdzamy X, Y, Z
-for axis in required_axes:
-    if not is_axis_referenced(axis):
-        msg_axes_referenced = f"Oś {axis} nie jest zbazowana! Uruchom proces bazowania."
+axis_to_check = [Axis.X, Axis.Y, Axis.Z]  # Sprawdzamy X, Y, Z
+for axis in axis_to_check:
+    if not d.isAxisReferenced(axis):
+        msg_axes_referenced = f"Oś {axis.name} nie jest zbazowana! Uruchom proces bazowania."
         throwMessage(msg_axes_referenced, "exit")   
 
 # exit if tool is in exception list for auto-tool-change 
