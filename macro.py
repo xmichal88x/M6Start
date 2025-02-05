@@ -503,11 +503,7 @@ def main():
     d.setToolLength (tool_new_id, tool_new_length)
     d.setToolOffsetNumber(tool_new_id)
     d.setSpindleToolNumber(tool_new_id)
-    
-    # Przywrócenie softlimitów
-    d.ignoreAllSoftLimits(False)
-    print("Softlimity przywrócone.")
-    
+
     # Dezaktywuje pozycję wymiany
     deactivate_tool_change_position()
     
@@ -516,7 +512,12 @@ def main():
 
     # Zamknij mgazyn narzędzi
     close_magazine()
-
+    
+    # Przywrócenie softlimitów
+    d.ignoreAllSoftLimits(False)
+    print("Softlimity przywrócone.")
+    throwMessage(msg_m6_end, "")
+    
 # Uruchomienie programu, jeśli jest wywoływany jako główny skrypt
 if __name__ == "__main__":
     main()
