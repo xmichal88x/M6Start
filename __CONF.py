@@ -53,6 +53,7 @@ IN_SECTION_1 = (IO_MODULE_ID, 0)                 # Przycisk Sekcji 1
 IN_SECTION_2 = (IO_MODULE_ID, 1)                 # Przycisk Sekcji 2
 IN_SECTION_3 = (IO_MODULE_ID, 2)                 # Przycisk Sekcji 3
 IN_SECTION_4 = (IO_MODULE_ID, 3)                 # Przycisk Sekcji 4
+
 #-----------------------------------------------------------
 #  Deklaracja zmiennych globalnych
 #-----------------------------------------------------------
@@ -85,3 +86,9 @@ Y = 1
 Z = 2
 A = 3
 C = 5
+
+#-----------------------------------------------------------
+# Lista osi do sprawdzania bazowania
+#-----------------------------------------------------------
+
+AXES_TO_CHECK = [X, Y, Z]
