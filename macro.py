@@ -123,7 +123,6 @@ def check_axes_referenced():
 def curtain_up():
     """
     Podnosi szczotkę.
-    - Wysyła sygnał do podnoszenia szczotki.
     - Sprawdza czujnik pozycji górnej szczotki.
     """
     print("Rozpoczynam podnoszenie szczotki...")
@@ -143,7 +142,6 @@ def curtain_up():
 def curtain_down():
     """
     Opuszcza szczotkę.
-    - Wysyła sygnał do opuszczania szczotki.
     - Sprawdza czujnik pozycji dolnej szczotki.
     """
     print("Rozpoczynam opuszczanie szczotki...")
@@ -163,7 +161,6 @@ def curtain_down():
 def aggregate_up():
     """
     Podnosi agregat.
-    - Wysyła sygnał do podnoszenia agregatu.
     - Sprawdza czujnik pozycji górnej agregatu.
     """
     print("Rozpoczynam podnoszenie agregatu...")
@@ -184,7 +181,6 @@ def aggregate_up():
 def aggregate_down():
     """
     Opuszcza agregat.
-    - Wysyła sygnał do opuszczania agregatu.
     - Sprawdza czujnik pozycji dolnej agregatu.
     """
     print("Rozpoczynam opuszczanie agregatu...")
@@ -204,7 +200,6 @@ def aggregate_down():
 def activate_tool_change_position():
     """
     Aktywuje pozycję wymiany narzędzia.
-    - Wysyła sygnał aktywujący pozycję wymiany narzędzia.
     """
     print("Aktywuję pozycję wymiany narzędzia...")
     set_digital_output(OUT_TOOL_CHANGE_POS, True)
@@ -214,7 +209,6 @@ def activate_tool_change_position():
 def deactivate_tool_change_position():
     """
     Dezaktywuje pozycję wymiany narzędzia.
-    - Wysyła sygnał dezaktywujący pozycję wymiany narzędzia.
     """
     print("Dezaktywuję pozycję wymiany narzędzia...")
     set_digital_output(OUT_TOOL_CHANGE_POS, False)
@@ -333,7 +327,7 @@ def close_magazine():
 
 #-----------------------------------------------------------
 #-----------------------------------------------------------
-# m6 START
+# M6 START
 #-----------------------------------------------------------
 #-----------------------------------------------------------
 
@@ -406,21 +400,19 @@ def main():
             machine_pos[X] = X_BASE + (X_TOOLOFFSET * (tool_old_id - 1))
             machine_pos[Y] = Y_FORSLIDE
             d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
-            d.waitForMotionEnd()
             
             # Sprawdź, czy jest wolne miejsce w magazynie narzędziowym
             if not get_digital_input(IN_Narzedzie_W_Magazynie):
                 throwMessage(msg_magazine, "exit")
             
-            # opuść Agregat 1
+            # opuść Agregat
             aggregate_down()
+            
             machine_pos[Z] = Z_TOOLGET
             d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
-            d.waitForMotionEnd()
             machine_pos[Y] = Y_LOCK
             d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
-            d.waitForMotionEnd()
-            
+                        
             # otwórz uchwyt
             open_collet()
             
@@ -430,7 +422,6 @@ def main():
             # odjedź na bezpieczną pozycję osi Z
             machine_pos[Z] = Z_SAFE
             d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
-            d.waitForMotionEnd()
             
             # zamknij uchwyt, wyłącz czyszczenie stożka, podnieś agregat i wyświetl wiadomość
             close_collet()
@@ -455,7 +446,7 @@ def main():
         machine_pos[Y] = Y_FORSLIDE
         machine_pos[X] = X_BASE + (X_TOOLOFFSET * (tool_new_id - 1))
         d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
-        d.waitForMotionEnd()
+        
         if get_digital_input(IN_Narzedzie_W_Magazynie):
             throwMessage(msg_magazine_get, "exit")
     
@@ -463,7 +454,6 @@ def main():
         machine_pos[Y] = Y_LOCK
         machine_pos[X] = X_BASE + (X_TOOLOFFSET * (tool_new_id - 1))
         d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
-        d.waitForMotionEnd()
     
         # otwórz uchwyt
         open_collet()
@@ -473,6 +463,7 @@ def main():
     
         # załącz czyszczenie stożka
         set_digital_output(OUT_CLEANCONE , True)
+        
         machine_pos[Z] = Z_TOOLGET + Z_LIFT
         d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
         machine_pos[Z] = Z_TOOLGET
@@ -485,11 +476,10 @@ def main():
         d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
         machine_pos[Z] = Z_TOOLGET
         d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_final)
-        d.waitForMotionEnd()
     
         # zamknij uchwyt i wyłącz czyszczenie stożka
-        set_digital_output(OUT_CLEANCONE, False)
         close_collet()
+        set_digital_output(OUT_CLEANCONE, False)
         
         time.sleep(conf_pause_debounce)
     
@@ -500,7 +490,6 @@ def main():
         # wyjedź poza uchwyt narzędzia
         machine_pos[Y] = Y_FORSLIDE
         d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
-        d.waitForMotionEnd()
     
         # przejedź do bezpiecznej pozycji Z 
         machine_pos[Z] = Z_SAFE
@@ -524,6 +513,9 @@ def main():
     
     # Opuść szczotkę
     curtain_down()
+
+    # Zamknij mgazyn narzędzi
+    close_magazine()
 
 # Uruchomienie programu, jeśli jest wywoływany jako główny skrypt
 if __name__ == "__main__":
