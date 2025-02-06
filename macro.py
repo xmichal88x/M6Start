@@ -51,7 +51,7 @@ def throwMessage(message, action=None):
 # Store some info for later use
 tool_old_id     =  d.getSpindleToolNumber()
 tool_new_id     =  d.getSelectedToolNumber()
-tool_new_len    =  d.getToolLength(tool_new_id)
+tool_new_length =  d.getToolLength(tool_new_id)
 machine_pos     =  d.getPosition(CoordMode.Machine)
 # spindle_speed   =  d.getSpindleSpeed()
 spindle_state   =  d.getSpindleState()
