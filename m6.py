@@ -121,7 +121,7 @@ if tool_new_id in conf_tools_special:
     throwMessage(msg_tool_special, "exit")   
 
 # exit if air pressure is too low 
-if getPinStatus(in_pressure) == False:  
+if getPinStatus(IN_PRESSURE) == False:  
     throwMessage(msg_air_warning, "exit")
 
 # exit if tool is already in spindle
