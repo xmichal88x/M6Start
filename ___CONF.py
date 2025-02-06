@@ -9,7 +9,7 @@ MAIN_MODULE_ID    = 0  # Główny sterownik CSMIO-IP
 IO_0_MODULE_ID    = 0  # Pierwszy dodatkowy moduł wejść/wyjść CSMIO-IO
 
 # -----------------------------------------------------------
-# IO CSMIO-IP - główny moduł
+# IO CSMIO-IP (MAIN_MODULE_ID)
 # -----------------------------------------------------------
 
 # WYJŚCIA
@@ -42,7 +42,7 @@ IN_Narzedzie_W_Magazynie = (MAIN_MODULE_ID, 14, MAIN_MODULE_TYPE)  # Czujnik obe
 IN_PRESSURE = (MAIN_MODULE_ID, 16, MAIN_MODULE_TYPE)               # Czujnik ciśnienia (active when ok)
 
 #-----------------------------------------------------------
-# IO Module 0
+# IO Module 0 (IO_0_MODULE_ID)
 #-----------------------------------------------------------
 
 # WYJŚCIA 
@@ -71,8 +71,8 @@ X_TOOLOFFSET = 143.0      # Odległość między narzędziami (2575mm/18)
 TOOLCOUNT = 6             # Maksymalna liczba narzędzi
 
 feed_atc_z_final    = 800           # Z feed before reaching tool
-feed_atc_z_fast     = 2500          # Z feed general
-feed_atc_xy         = 2500          # XY feed in general 
+feed_atc_z_fast     = 8000          # Z feed general
+feed_atc_xy         = 8000          # XY feed in general 
 
 # config
 conf_atc_purge_time = 0.5           # purge time in sec
