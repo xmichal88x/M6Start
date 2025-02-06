@@ -13,49 +13,49 @@ IO_0_MODULE_ID    = 0  # Pierwszy dodatkowy moduł wejść/wyjść CSMIO-IO
 # -----------------------------------------------------------
 
 # WYJŚCIA
-OUT_HV_ENABLE = (MAIN_MODULE_ID, 0)              # HV Enable (K814)
-OUT_RESET = (MAIN_MODULE_ID, 1)                  # Wyjście reset
-OUT_TOOL_CHANGE_POS = (MAIN_MODULE_ID, 2)        # Wyjście do aktywacji pozycji wymiany narzędzia
-OUT_ENABLE = (MAIN_MODULE_ID, 3)                 # Enable, Hamulec osi Z
-OUT_MAGAZINE_OPEN = (MAIN_MODULE_ID, 4)          # Wyjście do otwierania magazynu
-OUT_MAGAZINE_CLOSE = (MAIN_MODULE_ID, 5)         # Wyjście do zamykania magazynu
-OUT_AGGREGATE_DOWN = (MAIN_MODULE_ID, 6)         # Wyjście do opuszczania agregatu
-OUT_AGGREGATE_UP = (MAIN_MODULE_ID, 7)           # Wyjście do podnoszenia agregatu
-OUT_CURTAIN_DOWN = (MAIN_MODULE_ID, 8)           # Wyjście do opuszczania szczotki
-OUT_CURTAIN_UP = (MAIN_MODULE_ID, 9)             # Wyjście do podnoszenia szczotki
-OUT_COLLET_OPEN = (MAIN_MODULE_ID, 10)           # Wyjście do otwierania uchwytu narzędzia
-OUT_COLLET_CLOSE = (MAIN_MODULE_ID, 11)          # Wyjście do zamykania uchwytu narzędzia
-OUT_CLEANCONE = (MAIN_MODULE_ID, 12)             # Czyszczenie stożka
+OUT_HV_ENABLE = (MAIN_MODULE_ID, 0, MAIN_MODULE_TYPE)              # HV Enable (K814)
+OUT_RESET = (MAIN_MODULE_ID, 1, MAIN_MODULE_TYPE)                  # Wyjście reset
+OUT_TOOL_CHANGE_POS = (MAIN_MODULE_ID, 2, MAIN_MODULE_TYPE)        # Wyjście do aktywacji pozycji wymiany narzędzia
+OUT_ENABLE = (MAIN_MODULE_ID, 3, MAIN_MODULE_TYPE)                 # Enable, Hamulec osi Z
+OUT_MAGAZINE_OPEN = (MAIN_MODULE_ID, 4, MAIN_MODULE_TYPE)          # Wyjście do otwierania magazynu
+OUT_MAGAZINE_CLOSE = (MAIN_MODULE_ID, 5, MAIN_MODULE_TYPE)         # Wyjście do zamykania magazynu
+OUT_AGGREGATE_DOWN = (MAIN_MODULE_ID, 6, MAIN_MODULE_TYPE)         # Wyjście do opuszczania agregatu
+OUT_AGGREGATE_UP = (MAIN_MODULE_ID, 7, MAIN_MODULE_TYPE)           # Wyjście do podnoszenia agregatu
+OUT_CURTAIN_DOWN = (MAIN_MODULE_ID, 8, MAIN_MODULE_TYPE)           # Wyjście do opuszczania szczotki
+OUT_CURTAIN_UP = (MAIN_MODULE_ID, 9, MAIN_MODULE_TYPE)             # Wyjście do podnoszenia szczotki
+OUT_COLLET_OPEN = (MAIN_MODULE_ID, 10, MAIN_MODULE_TYPE)           # Wyjście do otwierania uchwytu narzędzia
+OUT_COLLET_CLOSE = (MAIN_MODULE_ID, 11, MAIN_MODULE_TYPE)          # Wyjście do zamykania uchwytu narzędzia
+OUT_CLEANCONE = (MAIN_MODULE_ID, 12, MAIN_MODULE_TYPE)             # Czyszczenie stożka
 
 # WEJŚCIA
-IN_COLLET_OPEN = (MAIN_MODULE_ID, 13)            # Czujnik otwarcia uchwytu narzędzia 1==True
-IN_TOOL_INSIDE = (MAIN_MODULE_ID, 12)            # Czujnik obecności narzędzia w uchwycie 1==True
-IN_CURTAIN_UP = (MAIN_MODULE_ID, 6)              # Czujnik górnej pozycji szczotki
-IN_CURTAIN_DOWN = (MAIN_MODULE_ID, 5)            # Czujnik dolnej pozycji szczotki
-IN_Oslona_Pion_Open = (MAIN_MODULE_ID, 7)        # Czujnik otwarcia osłony pionowej
-IN_Oslona_Pion_Close = (MAIN_MODULE_ID, 8)       # Czujnik zamknięcia osłony pionowej
-IN_Oslona_Poz_Open = (MAIN_MODULE_ID, 9)         # Czujnik otwarcia osłony poziomej
-IN_Oslona_Poz_Close = (MAIN_MODULE_ID, 11)       # Czujnik zamknięcia osłony poziomej
-IN_AGGREGATE_UP = (MAIN_MODULE_ID, 3)            # Czujnik górnej pozycji agregatu A1
-IN_AGGREGATE_DOWN = (MAIN_MODULE_ID, 4)          # Czujnik dolnej pozycji agregatu A1
-IN_Narzedzie_W_Magazynie = (MAIN_MODULE_ID, 14)  # Czujnik obecności narzędzia w magazynie
-IN_PRESSURE = (MAIN_MODULE_ID, 16)               # Czujnik ciśnienia (active when ok)
+IN_COLLET_OPEN = (MAIN_MODULE_ID, 13, MAIN_MODULE_TYPE)            # Czujnik otwarcia uchwytu narzędzia 1==True
+IN_TOOL_INSIDE = (MAIN_MODULE_ID, 12, MAIN_MODULE_TYPE)            # Czujnik obecności narzędzia w uchwycie 1==True
+IN_CURTAIN_UP = (MAIN_MODULE_ID, 6, MAIN_MODULE_TYPE)              # Czujnik górnej pozycji szczotki
+IN_CURTAIN_DOWN = (MAIN_MODULE_ID, 5, MAIN_MODULE_TYPE)            # Czujnik dolnej pozycji szczotki
+IN_Oslona_Pion_Open = (MAIN_MODULE_ID, 7, MAIN_MODULE_TYPE)        # Czujnik otwarcia osłony pionowej
+IN_Oslona_Pion_Close = (MAIN_MODULE_ID, 8, MAIN_MODULE_TYPE)       # Czujnik zamknięcia osłony pionowej
+IN_Oslona_Poz_Open = (MAIN_MODULE_ID, 9, MAIN_MODULE_TYPE)         # Czujnik otwarcia osłony poziomej
+IN_Oslona_Poz_Close = (MAIN_MODULE_ID, 11, MAIN_MODULE_TYPE)       # Czujnik zamknięcia osłony poziomej
+IN_AGGREGATE_UP = (MAIN_MODULE_ID, 3, MAIN_MODULE_TYPE)            # Czujnik górnej pozycji agregatu A1
+IN_AGGREGATE_DOWN = (MAIN_MODULE_ID, 4, MAIN_MODULE_TYPE)          # Czujnik dolnej pozycji agregatu A1
+IN_Narzedzie_W_Magazynie = (MAIN_MODULE_ID, 14, MAIN_MODULE_TYPE)  # Czujnik obecności narzędzia w magazynie
+IN_PRESSURE = (MAIN_MODULE_ID, 16, MAIN_MODULE_TYPE)               # Czujnik ciśnienia (active when ok)
 
 #-----------------------------------------------------------
 # IO Module 0
 #-----------------------------------------------------------
 
 # WYJŚCIA 
-OUT_SECTION_1 = (IO_MODULE_ID, 0)                # Wyjście Sekcji 1
-OUT_SECTION_2 = (IO_MODULE_ID, 1)                # Wyjście Sekcji 2
-OUT_SECTION_3 = (IO_MODULE_ID, 2)                # Wyjście Sekcji 3
-OUT_SECTION_4 = (IO_MODULE_ID, 3)                # Wyjście Sekcji 4
+OUT_SECTION_1 = (IO_0_MODULE_ID, 0, IO_MODULE_TYPE)                # Wyjście Sekcji 1
+OUT_SECTION_2 = (IO_0_MODULE_ID, 1, IO_MODULE_TYPE)                # Wyjście Sekcji 2
+OUT_SECTION_3 = (IO_0_MODULE_ID, 2, IO_MODULE_TYPE)                # Wyjście Sekcji 3
+OUT_SECTION_4 = (IO_0_MODULE_ID, 3, IO_MODULE_TYPE)                # Wyjście Sekcji 4
 
 # WEJŚCIA
-IN_SECTION_1 = (IO_MODULE_ID, 0)                 # Przycisk Sekcji 1
-IN_SECTION_2 = (IO_MODULE_ID, 1)                 # Przycisk Sekcji 2
-IN_SECTION_3 = (IO_MODULE_ID, 2)                 # Przycisk Sekcji 3
-IN_SECTION_4 = (IO_MODULE_ID, 3)                 # Przycisk Sekcji 4
+IN_SECTION_1 = (IO_0_MODULE_ID, 0, IO_MODULE_TYPE)                 # Przycisk Sekcji 1
+IN_SECTION_2 = (IO_0_MODULE_ID, 1, IO_MODULE_TYPE)                 # Przycisk Sekcji 2
+IN_SECTION_3 = (IO_0_MODULE_ID, 2, IO_MODULE_TYPE)                 # Przycisk Sekcji 3
+IN_SECTION_4 = (IO_0_MODULE_ID, 3, IO_MODULE_TYPE)                 # Przycisk Sekcji 4
 
 #-----------------------------------------------------------
 #  Deklaracja zmiennych globalnych
