@@ -3,7 +3,7 @@
 # -----------------------------------------------------------
 
 MAIN_MODULE_ID = 0  # Główny sterownik CSMIO-IP
-IO_MODULE_ID = 0  # Pierwszy dodatkowy moduł wejść/wyjść CSMIO-IO
+IO_MODULE_ID = 1  # Pierwszy dodatkowy moduł wejść/wyjść CSMIO-IO
 
 # -----------------------------------------------------------
 # IO CSMIO-IP - główny moduł
