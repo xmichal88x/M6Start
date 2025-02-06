@@ -371,6 +371,9 @@ def main():
     if spindle_state != SpindleState.OFF:
         throwMessage(msg_spindle_error, "exit")
     
+    # Opuść Agregat
+    aggregate_down()
+    
     # Curtain up 
     curtain_up()
     
@@ -486,8 +489,9 @@ def main():
         machine_pos[Y] = Y_FORSLIDE
         d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
     
-        # przejedź do bezpiecznej pozycji Z 
+        # przejedź do bezpiecznej pozycji Z poza magazyn
         machine_pos[Z] = Z_SAFE
+        machine_pos[Y] = 1550
         d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
     
     #-----------------------------------------------------------
