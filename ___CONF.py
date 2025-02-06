@@ -28,16 +28,16 @@ OUT_COLLET_CLOSE = (MAIN_MODULE_ID, 11, MAIN_MODULE_TYPE)          # Wyjście do
 OUT_CLEANCONE = (MAIN_MODULE_ID, 12, MAIN_MODULE_TYPE)             # Czyszczenie stożka
 
 # WEJŚCIA
-IN_COLLET_OPEN = (MAIN_MODULE_ID, 13, MAIN_MODULE_TYPE)            # Czujnik otwarcia uchwytu narzędzia 1==True
-IN_TOOL_INSIDE = (MAIN_MODULE_ID, 12, MAIN_MODULE_TYPE)            # Czujnik obecności narzędzia w uchwycie 1==True
-IN_CURTAIN_UP = (MAIN_MODULE_ID, 6, MAIN_MODULE_TYPE)              # Czujnik górnej pozycji szczotki
+IN_AGGREGATE_UP = (MAIN_MODULE_ID, 3, MAIN_MODULE_TYPE)            # Czujnik górnej pozycji agregatu A1
+IN_AGGREGATE_DOWN = (MAIN_MODULE_ID, 4, MAIN_MODULE_TYPE)          # Czujnik dolnej pozycji agregatu A1
 IN_CURTAIN_DOWN = (MAIN_MODULE_ID, 5, MAIN_MODULE_TYPE)            # Czujnik dolnej pozycji szczotki
+IN_CURTAIN_UP = (MAIN_MODULE_ID, 6, MAIN_MODULE_TYPE)              # Czujnik górnej pozycji szczotki
 IN_Oslona_Pion_Open = (MAIN_MODULE_ID, 7, MAIN_MODULE_TYPE)        # Czujnik otwarcia osłony pionowej
 IN_Oslona_Pion_Close = (MAIN_MODULE_ID, 8, MAIN_MODULE_TYPE)       # Czujnik zamknięcia osłony pionowej
 IN_Oslona_Poz_Open = (MAIN_MODULE_ID, 9, MAIN_MODULE_TYPE)         # Czujnik otwarcia osłony poziomej
 IN_Oslona_Poz_Close = (MAIN_MODULE_ID, 11, MAIN_MODULE_TYPE)       # Czujnik zamknięcia osłony poziomej
-IN_AGGREGATE_UP = (MAIN_MODULE_ID, 3, MAIN_MODULE_TYPE)            # Czujnik górnej pozycji agregatu A1
-IN_AGGREGATE_DOWN = (MAIN_MODULE_ID, 4, MAIN_MODULE_TYPE)          # Czujnik dolnej pozycji agregatu A1
+IN_COLLET_OPEN = (MAIN_MODULE_ID, 13, MAIN_MODULE_TYPE)            # Czujnik otwarcia uchwytu narzędzia 1==True
+IN_TOOL_INSIDE = (MAIN_MODULE_ID, 12, MAIN_MODULE_TYPE)            # Czujnik obecności narzędzia w uchwycie 1==True
 IN_Narzedzie_W_Magazynie = (MAIN_MODULE_ID, 14, MAIN_MODULE_TYPE)  # Czujnik obecności narzędzia w magazynie
 IN_PRESSURE = (MAIN_MODULE_ID, 16, MAIN_MODULE_TYPE)               # Czujnik ciśnienia (active when ok)
 
