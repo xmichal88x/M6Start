@@ -58,12 +58,12 @@ IN_SECTION_4 = (IO_MODULE_ID, 3)                 # Przycisk Sekcji 4
 #  Deklaracja zmiennych globalnych
 #-----------------------------------------------------------
 
-Z_TOOLGET = -88           # Z pozycja (absolutna) pobierania/zwalniania narzędzia
+Z_TOOLGET = -212           # Z pozycja (absolutna) pobierania/zwalniania narzędzia
 Z_LIFT = 10               # Odległość unoszenia do czyszczenia stożka
 Z_SAFE = -10              # Bezpieczna Z do poruszania się nad uchwytami narzędzi
 Y_FORSLIDE = 1765         # Y pozycja przed wsunięciem narzędzia do uchwytu
 Y_LOCK = 1915             # Y pozycja do blokowania narzędzia w uchwycie
-X_BASE = 460              # X pozycja pierwszego narzędzia
+X_BASE = 458              # X pozycja pierwszego narzędzia
 X_TOOLOFFSET = 143.0      # Odległość między narzędziami (2575mm/18)
 TOOLCOUNT = 6             # Maksymalna liczba narzędzi
 
