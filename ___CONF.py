@@ -2,8 +2,11 @@
 # Moduły sterowania
 # -----------------------------------------------------------
 
-MAIN_MODULE_ID = 0  # Główny sterownik CSMIO-IP
-IO_MODULE_ID = 1  # Pierwszy dodatkowy moduł wejść/wyjść CSMIO-IO
+MAIN_MODULE_TYPE  = "IP"    # Typ głównego sterownika
+IO_MODULE_TYPE    = "IO"    # Typ dodatkowego modułu
+
+MAIN_MODULE_ID    = 0  # Główny sterownik CSMIO-IP
+IO_0_MODULE_ID    = 0  # Pierwszy dodatkowy moduł wejść/wyjść CSMIO-IO
 
 # -----------------------------------------------------------
 # IO CSMIO-IP - główny moduł
