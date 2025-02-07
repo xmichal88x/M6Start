@@ -40,6 +40,7 @@ IN_COLLET_OPEN = (MAIN_MODULE_ID, 13, MAIN_MODULE_TYPE)            # Czujnik otw
 IN_TOOL_INSIDE = (MAIN_MODULE_ID, 12, MAIN_MODULE_TYPE)            # Czujnik obecności narzędzia w uchwycie 1==True
 IN_Narzedzie_W_Magazynie = (MAIN_MODULE_ID, 14, MAIN_MODULE_TYPE)  # Czujnik obecności narzędzia w magazynie
 IN_PRESSURE = (MAIN_MODULE_ID, 16, MAIN_MODULE_TYPE)               # Czujnik ciśnienia (active when ok)
+IN_btn_tools_warehouse = (MAIN_MODULE_ID, 17, MAIN_MODULE_TYPE)    # Przycisk otwierania/zamykania magazynu narzędzi 
 
 #-----------------------------------------------------------
 # IO Module 0 (IO_0_MODULE_ID)
