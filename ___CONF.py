@@ -40,7 +40,7 @@ IN_COLLET_OPEN = (MAIN_MODULE_ID, 13, MAIN_MODULE_TYPE)            # Czujnik otw
 IN_TOOL_INSIDE = (MAIN_MODULE_ID, 12, MAIN_MODULE_TYPE)            # Czujnik obecności narzędzia w uchwycie 1==True
 IN_Narzedzie_W_Magazynie = (MAIN_MODULE_ID, 14, MAIN_MODULE_TYPE)  # Czujnik obecności narzędzia w magazynie
 IN_PRESSURE = (MAIN_MODULE_ID, 16, MAIN_MODULE_TYPE)               # Czujnik ciśnienia (active when ok)
-IN_btn_tools_warehouse = (MAIN_MODULE_ID, 17, MAIN_MODULE_TYPE)    # Przycisk otwierania/zamykania magazynu narzędzi 
+IN_btn_tools_warehouse = (MAIN_MODULE_ID, 17, MAIN_MODULE_TYPE)    # Przycisk obsługi magazynu narzędzi 
 
 #-----------------------------------------------------------
 # IO Module 0 (IO_0_MODULE_ID)
@@ -57,6 +57,7 @@ IN_SECTION_1 = (IO_0_MODULE_ID, 0, IO_MODULE_TYPE)                 # Przycisk Se
 IN_SECTION_2 = (IO_0_MODULE_ID, 1, IO_MODULE_TYPE)                 # Przycisk Sekcji 2
 IN_SECTION_3 = (IO_0_MODULE_ID, 2, IO_MODULE_TYPE)                 # Przycisk Sekcji 3
 IN_SECTION_4 = (IO_0_MODULE_ID, 3, IO_MODULE_TYPE)                 # Przycisk Sekcji 4
+IN_btn_collet = (IO_0_MODULE_ID, 4, IO_MODULE_TYPE)                # Przycisk obsługi uchwytu narzędzia
 
 #-----------------------------------------------------------
 #  Deklaracja zmiennych globalnych
