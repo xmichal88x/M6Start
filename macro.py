@@ -63,6 +63,7 @@ machine_pos     =  d.getPosition(CoordMode.Machine)
 # spindle_speed =  d.getSpindleSpeed()
 spindle_state   =  d.getSpindleState()
 tool_old_pocket_id  =  tool_old_id
+tool_new_pocket_id  =  tool_new_id
 
 
 # if debug is enabled, output some helpful information
@@ -123,6 +124,45 @@ def set_digital_output(pin_tuple, state):
     except NameError as e:
         print(f"Błąd: Digital Output został błędnie zdefiniowany. Szczegóły: {e}")
 
+#-----------------------------------------------------------
+# Operacje na json
+#-----------------------------------------------------------
+
+def wczytaj_ustawienia():
+    """Wczytuje ustawienia z JSON i konwertuje wartości na nazwy."""
+    try:
+        with open(JSON_FILE, "r") as f:
+            data = json.load(f)
+        # Zamiana wartości 0/1 na nazwy trybu pracy
+        for tool, params in data.items():
+            params["tryb_pracy"] = TRYB_PRACY_MAP.get(params["tryb_pracy"], "Nieznany")
+        return data
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+
+def odczytaj_kieszen(narzedzie):
+    """Odczytuje numer kieszeni dla podanego narzędzia z pliku JSON."""
+    data = wczytaj_ustawienia()  # Wczytuje dane z pliku JSON
+
+    # Sprawdza, czy narzędzie istnieje w danych
+    if str(narzedzie) in data:
+        kieszen = data[str(narzedzie)]["kieszen"]  # Pobiera numer kieszeni
+        return kieszen
+    else:
+        messagebox.showerror("Błąd", f"Narzędzie {narzedzie} nie znaleziono w pliku JSON.")
+        return None
+
+def odczytaj_tryb_pracy(narzedzie):
+    """Odczytuje tryb pracy dla podanego narzędzia z pliku JSON."""
+    data = wczytaj_ustawienia()  # Wczytuje dane z pliku JSON
+
+    # Sprawdza, czy narzędzie istnieje w danych
+    if str(narzedzie) in data:
+        tryb_pracy = data[str(narzedzie)]["tryb_pracy"]  # Pobiera tryb pracy
+        return tryb_pracy
+    else:
+        messagebox.showerror("Błąd", f"Narzędzie {narzedzie} nie znaleziono w pliku JSON.")
+        return None
 #-----------------------------------------------------------
 # Lista programów
 #-----------------------------------------------------------
@@ -412,6 +452,12 @@ def main():
     #-----------------------------------------------------------
     if tool_old_id > 0:
         if get_digital_input(IN_TOOL_INSIDE):
+            
+            # Odczytaj kieszeń z json
+            kieszen = odczytaj_kieszen(tool_old_pocket_id)
+            if kieszen is not None:
+                print(f"Numer kieszeni dla  T{tool_old_pocket_id}: {kieszen}")
+            
             # move to the toolholder
             # Obliczenie nowej pozycji na podstawie ToolOld
             machine_pos[X] = X_BASE + (X_TOOLOFFSET * (tool_old_pocket_id - 1))
