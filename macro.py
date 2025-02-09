@@ -579,7 +579,6 @@ def main():
     # Opuść szczotkę
     curtain_down()
 
-
     # Odczytaj tryb pracy
     tryb_pracy = odczytaj_tryb_pracy(tool_new_id)
 
@@ -587,6 +586,8 @@ def main():
         aggregate_up()
     elif tryb_pracy == "Dół":
         aggregate_down()
+    if tryb_pracy is not None:
+        print(f"Tryb pracy dla narzędzia T{tool_new_id}: {tryb_pracy}")
 
     # Zamknij mgazyn narzędzi
     close_magazine()
