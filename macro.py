@@ -1,6 +1,13 @@
 from ___CONF import * 
 import time   
 import sys
+import json
+
+JSON_FILE = "narzedzia.json"
+
+# Mapowanie wartości liczbowych na nazwy trybu pracy
+TRYB_PRACY_MAP = {0: "Dół", 1: "Góra"}
+TRYB_PRACY_REVERSE = {"Dół": 0, "Góra": 1}
 
 timezone = time.localtime() 
 
@@ -53,8 +60,9 @@ tool_old_id     =  d.getSpindleToolNumber()
 tool_new_id     =  d.getSelectedToolNumber()
 tool_new_length =  d.getToolLength(tool_new_id)
 machine_pos     =  d.getPosition(CoordMode.Machine)
-# spindle_speed   =  d.getSpindleSpeed()
+# spindle_speed =  d.getSpindleSpeed()
 spindle_state   =  d.getSpindleState()
+tool_old_pocket_id  =  tool_old_id
 
 
 # if debug is enabled, output some helpful information
@@ -355,7 +363,7 @@ def main():
         throwMessage(msg_air_warning, "exit")
     
     # exit if tool is already in spindle
-    if tool_old_id == tool_new_id: 
+    if tool_pocket_id == tool_new_id: 
         throwMessage(msg_old_equal_new, "exit")
     
     # exit on tool zero
@@ -367,7 +375,7 @@ def main():
         throwMessage(msg_tool_count, "exit") 	 
     
     # exit if unknown tool in the holder
-    if tool_old_id == 0 and get_digital_input(IN_TOOL_INSIDE):
+    if tool_pocket_id == 0 and get_digital_input(IN_TOOL_INSIDE):
         throwMessage(msg_unknow_tool, "exit")
     
     #-----------------------------------------------------------
@@ -406,7 +414,7 @@ def main():
         if get_digital_input(IN_TOOL_INSIDE):
             # move to the toolholder
             # Obliczenie nowej pozycji na podstawie ToolOld
-            machine_pos[X] = X_BASE + (X_TOOLOFFSET * (tool_old_id - 1))
+            machine_pos[X] = X_BASE + (X_TOOLOFFSET * (tool_old_pocket_id - 1))
             machine_pos[Y] = Y_FORSLIDE
             d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
             
