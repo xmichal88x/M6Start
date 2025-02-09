@@ -6,6 +6,9 @@ JSON_FILE = "narzedzia.json"
 TRYB_PRACY_MAP = {0: "Dół", 1: "Góra"}
 TRYB_PRACY_REVERSE = {"Dół": 0, "Góra": 1}
 
+tool_old_id     =  d.getSpindleToolNumber()
+tool_old_pocket_id = tool_old_id
+
 def wczytaj_ustawienia():
     """Wczytuje ustawienia z JSON i konwertuje wartości na nazwy."""
     try:
@@ -70,16 +73,18 @@ def odczytaj_tryb_pracy(narzedzie):
 
 # Test - ustawienie wartości dla narzędzi
 #ustaw_tryb_pracy(1, "Dół")
-#ustaw_kieszen(1, 5)
+#ustaw_kieszen(2, 2)
 
-narzedzie = "3"
-kieszen = odczytaj_kieszen(narzedzie)
+
+kieszen = odczytaj_kieszen(tool_old_pocket_id)
 if kieszen is not None:
-    print(f"Numer kieszeni dla  T{narzedzie}: {kieszen}")
+    print(f"Numer kieszeni dla  T{tool_old_pocket_id}: {kieszen}")
 
-tryb_pracy = odczytaj_tryb_pracy(narzedzie)
-if tryb_pracy is not None:
-    print(f"Tryb pracy dla narzędzia T{narzedzie}: {tryb_pracy}")
+#print(f"Numer narzędzia starego {tool_old_id}")
+
+#tryb_pracy = odczytaj_tryb_pracy(narzedzie)
+#if tryb_pracy is not None:
+   # print(f"Tryb pracy dla narzędzia T{narzedzie}: {tryb_pracy}")
 
 
 
