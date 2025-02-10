@@ -512,12 +512,7 @@ def main():
             
         # podnieś Agregat
         aggregate_up()
-
-        # Odczytaj kieszeń z json
-        tool_new_pocket_id = odczytaj_kieszen(tool_new_id)
-        if kieszen is not None:
-             print(f"Numer kieszeni dla  T{tool_new_id}: {kieszen}")
-    
+        
         # Sprawdź, czy narzędzie jest w magazynie narzędzi
         machine_pos[Y] = Y_FORSLIDE
         machine_pos[X] = X_BASE + (X_TOOLOFFSET * (tool_new_pocket_id - 1))
