@@ -583,13 +583,13 @@ def main():
     curtain_down()
 
     # Ustaw tryb pracy dla narzędzia
+    if tryb_pracy is not None:
+        print(f"Tryb pracy dla narzędzia T{tool_new_id}: {tryb_pracy}")
     if tryb_pracy == "Góra":
         aggregate_up()
     elif tryb_pracy == "Dół":
         aggregate_down()
-    if tryb_pracy is not None:
-        print(f"Tryb pracy dla narzędzia T{tool_new_id}: {tryb_pracy}")
-
+    
     # Zamknij mgazyn narzędzi
     close_magazine()
     
