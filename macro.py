@@ -62,8 +62,8 @@ tool_new_length =  d.getToolLength(tool_new_id)
 machine_pos     =  d.getPosition(CoordMode.Machine)
 # spindle_speed =  d.getSpindleSpeed()
 spindle_state   =  d.getSpindleState()
-tool_old_pocket_id  =  tool_old_id
-tool_new_pocket_id  =  tool_new_id
+# tool_old_pocket_id  =  tool_old_id
+# tool_new_pocket_id  =  tool_new_id
 
 
 # if debug is enabled, output some helpful information
@@ -390,7 +390,18 @@ def main():
     #-----------------------------------------------------------
     # Perform pre-checks
     #-----------------------------------------------------------
-
+    
+    # Odczytaj z json
+    tool_old_pocket_id= odczytaj_kieszen(tool_old_id)                # Odczytaj kieszeń dla starego narzędzia
+    if kieszen is not None:
+         print(f"Numer kieszeni dla  T{tool_old_id}: {kieszen}")
+        
+    tool_new_pocket_id= odczytaj_kieszen(tool_new_id)                # Odczytaj kieszeń dla nowego narzędzia
+    if kieszen is not None:
+         print(f"Numer kieszeni dla  T{tool_old_id}: {kieszen}")
+        
+    tryb_pracy = odczytaj_tryb_pracy(tool_new_id)                    # Odczytaj Tryb pracy nowego narzędzia
+    
     # exit if axes not referenced
     check_axes_referenced()
     
@@ -452,12 +463,7 @@ def main():
     #-----------------------------------------------------------
     if tool_old_id > 0:
         if get_digital_input(IN_TOOL_INSIDE):
-            
-            # Odczytaj kieszeń z json
-            tool_old_pocket_id= odczytaj_kieszen(tool_old_id)
-            if kieszen is not None:
-                print(f"Numer kieszeni dla  T{tool_old_id}: {kieszen}")
-            
+                       
             # move to the toolholder
             # Obliczenie nowej pozycji na podstawie ToolOld
             machine_pos[X] = X_BASE + (X_TOOLOFFSET * (tool_old_pocket_id - 1))
@@ -579,9 +585,7 @@ def main():
     # Opuść szczotkę
     curtain_down()
 
-    # Odczytaj tryb pracy
-    tryb_pracy = odczytaj_tryb_pracy(tool_new_id)
-
+    # Ustaw tryb pracy dla narzędzia
     if tryb_pracy == "Góra":
         aggregate_up()
     elif tryb_pracy == "Dół":
