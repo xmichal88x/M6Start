@@ -41,12 +41,14 @@ msg_magazine_get        = "⚠️ Brak narzędzia w magazynie narzędzi"
 # FUNCTION to throw message in py status line and optionally end program 
 # Args: message(string), action(boolean)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-def throwMessage(message, action=None):
+def throwMessage(message, action):
 
     ttime = time.strftime("%H:%M:%S", timezone)
     print("\n"  + ttime + " - " + message)
-    
-    msg.info("\n"  + ttime + " - " + message)  # To zawsze powinno działać
+
+    if message == True: 
+        
+        msg.info("\n"  + ttime + " - " + message)
 
     if action == "exit":
         sys.exit(0)
