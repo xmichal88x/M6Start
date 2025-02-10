@@ -400,7 +400,7 @@ def main():
         
     tool_new_pocket_id = odczytaj_kieszen(tool_new_id)               # Odczytaj kieszeń dla nowego narzędzia
     if tool_new_pocket_id is not None:
-         print(f"Numer kieszeni dla  T{tool_old_id}: {tool_new_pocket_id}")
+         print(f"Numer kieszeni dla  T{tool_new_id}: {tool_new_pocket_id}")
         
     tryb_pracy = odczytaj_tryb_pracy(tool_new_id)                    # Odczytaj Tryb pracy nowego narzędzia
     
