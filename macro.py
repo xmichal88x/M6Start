@@ -403,7 +403,7 @@ def main():
         throwMessage(msg_air_warning, "exit")
     
     # exit if tool is already in spindle
-    if tool_pocket_id == tool_new_id: 
+    if tool_old_id == tool_new_id: 
         throwMessage(msg_old_equal_new, "exit")
     
     # exit on tool zero
@@ -415,7 +415,7 @@ def main():
         throwMessage(msg_tool_count, "exit") 	 
     
     # exit if unknown tool in the holder
-    if tool_pocket_id == 0 and get_digital_input(IN_TOOL_INSIDE):
+    if tool_old_id == 0 and get_digital_input(IN_TOOL_INSIDE):
         throwMessage(msg_unknow_tool, "exit")
     
     #-----------------------------------------------------------
@@ -454,9 +454,9 @@ def main():
         if get_digital_input(IN_TOOL_INSIDE):
             
             # Odczytaj kieszeń z json
-            kieszen = odczytaj_kieszen(tool_old_pocket_id)
+            kieszen = odczytaj_kieszen(tool_old_id)
             if kieszen is not None:
-                print(f"Numer kieszeni dla  T{tool_old_pocket_id}: {kieszen}")
+                print(f"Numer kieszeni dla  T{tool_old_id}: {kieszen}")
             
             # move to the toolholder
             # Obliczenie nowej pozycji na podstawie ToolOld
