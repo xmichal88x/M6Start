@@ -411,7 +411,7 @@ def main():
         throwMessage(msg_tool_zero, "exit") 
     
     # exit if tool is out of range
-    if tool_new_id > TOOLCOUNT:
+    if tool_new_pocket_id > TOOLCOUNT:
         throwMessage(msg_tool_count, "exit") 	 
     
     # exit if unknown tool in the holder
@@ -454,7 +454,7 @@ def main():
         if get_digital_input(IN_TOOL_INSIDE):
             
             # Odczytaj kieszeń z json
-            kieszen = odczytaj_kieszen(tool_old_id)
+            tool_old_pocket_id= odczytaj_kieszen(tool_old_id)
             if kieszen is not None:
                 print(f"Numer kieszeni dla  T{tool_old_id}: {kieszen}")
             
@@ -506,9 +506,9 @@ def main():
         aggregate_up()
 
         # Odczytaj kieszeń z json
-        kieszen = odczytaj_kieszen(tool_new_pocket_id)
+        tool_new_pocket_id = odczytaj_kieszen(tool_new_id)
         if kieszen is not None:
-             print(f"Numer kieszeni dla  T{tool_new_pocket_id}: {kieszen}")
+             print(f"Numer kieszeni dla  T{tool_new_id}: {kieszen}")
     
         # Sprawdź, czy narzędzie jest w magazynie narzędzi
         machine_pos[Y] = Y_FORSLIDE
