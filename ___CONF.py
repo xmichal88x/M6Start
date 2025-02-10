@@ -86,13 +86,13 @@ conf_pause_debounce = 0.5           # debounce time for tool clamp close before 
 # Pomiar długości narzędzia
 #-----------------------------------------------------------
 
-PROBE_INDEX = 0      # Indeks czujnika pomiarowego
+PROBE_INDEX = 0            # Indeks czujnika pomiarowego (jeśli w systemie jest więcej niż jeden)
 
 PROBE_START_X = 0          # Pozycja startowa X dla pomiaru
 PROBE_START_Y = 0          # Pozycja startowa Y dla pomiaru
-PROBE_START_Z = -10        # Pozycja startowa Z dla pomiaru
-PROBE_END_Z = -125         # Końcowa pozycja Z do pomiaru
-REF_TOOL_PROBE_POS = -120  # Pozycja pomiarowa dla narzędzia odniesienia
+PROBE_START_Z = -10        # Pozycja startowa Z dla pomiaru 
+PROBE_END_Z = -125         # Końcowa pozycja Z do pomiaru (najniższy punkt do którego sonda ma się obniżyć)
+REF_TOOL_PROBE_POS = -120  # Pozycja pomiarowa dla narzędzia odniesienia (np. długość wzorcowego narzędzia)
 
 FEED_PROBE_MOVE = 8000     # Prędkość przemieszczania się do punktu pomiarowego
 FEED_PROBE_FAST = 500      # Prędkość szybkiego pomiaru
