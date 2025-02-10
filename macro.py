@@ -395,12 +395,12 @@ def main():
     
     # Odczytaj z json
     tool_old_pocket_id = odczytaj_kieszen(tool_old_id)               # Odczytaj kieszeń dla starego narzędzia
-    if kieszen is not None:
-         print(f"Numer kieszeni dla  T{tool_old_id}: {kieszen}")
+    if tool_old_pocket_id is not None:
+         print(f"Numer kieszeni dla  T{tool_old_id}: {tool_old_pocket_id}")
         
     tool_new_pocket_id = odczytaj_kieszen(tool_new_id)               # Odczytaj kieszeń dla nowego narzędzia
-    if kieszen is not None:
-         print(f"Numer kieszeni dla  T{tool_old_id}: {kieszen}")
+    if tool_new_pocket_id is not None:
+         print(f"Numer kieszeni dla  T{tool_old_id}: {tool_new_pocket_id}")
         
     tryb_pracy = odczytaj_tryb_pracy(tool_new_id)                    # Odczytaj Tryb pracy nowego narzędzia
     
