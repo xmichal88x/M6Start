@@ -83,6 +83,30 @@ conf_tools_noprobe  = {0,10}        # No automatic length probing
 conf_pause_debounce = 0.5           # debounce time for tool clamp close before checking sensor
 
 #-----------------------------------------------------------
+# Pomiar długości narzędzia
+#-----------------------------------------------------------
+
+PROBE_INDEX = 0      # Indeks czujnika pomiarowego
+
+PROBE_START_X = 0          # Pozycja startowa X dla pomiaru
+PROBE_START_Y = 0          # Pozycja startowa Y dla pomiaru
+PROBE_START_Z = -10        # Pozycja startowa Z dla pomiaru
+PROBE_END_Z = -125         # Końcowa pozycja Z do pomiaru
+REF_TOOL_PROBE_POS = -120  # Pozycja pomiarowa dla narzędzia odniesienia
+
+FEED_PROBE_MOVE = 8000     # Prędkość przemieszczania się do punktu pomiarowego
+FEED_PROBE_FAST = 500      # Prędkość szybkiego pomiaru
+FEED_PROBE_SLOW = 250      # Prędkość dokładnego pomiaru
+
+PROBE_LIFT_UP_DIST = 5     # Wysokość podniesienia osi Z przed dokładnym pomiarem
+PROBE_FINE_DELAY = 0.2     # Opóźnienie przed dokładnym pomiarem (sekundy)
+PROBE_CHECK_DIFF = False   # Czy sprawdzać różnicę między szybkim a dokładnym pomiarem?
+PROBE_MAX_DIFF = 0.1       # Maksymalna różnica pomiarów
+
+PROBE_MOVE_X = True        # Czy przemieszczać się w osi X do punktu startowego pomiaru?
+PROBE_MOVE_Y = True        # Czy przemieszczać się w osi Y do punktu startowego pomiaru?
+
+#-----------------------------------------------------------
 # Axis allocation
 #-----------------------------------------------------------
 
