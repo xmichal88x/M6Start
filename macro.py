@@ -95,7 +95,7 @@ def get_digital_input(pin_tuple):
         return None
 
     value = csmio.getDigitalIO(IOPortDir.InputPort, pin) == DIOPinVal.PinSet
-    print(f"Odczytano wejście: module_id={module_id}, pin={pin}, wartość={value}")
+    # print(f"Odczytano wejście: module_id={module_id}, pin={pin}, wartość={value}")
     return value
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
