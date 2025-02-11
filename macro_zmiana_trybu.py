@@ -48,7 +48,17 @@ if zapisany_tryb == aktualny_tryb:
 print(f"Wykryto zmianę trybu pracy narzędzia! {zapisany_tryb} -> {aktualny_tryb}")
 
 # Pobranie offsetu wrzeciona dla nowego trybu
-offset_wrzesiona = odczytaj_offset(0)  # Narzędzie 0 (puste wrzeciono)
+try:
+    with open(JSON_FILE, "r") as f:
+        data = json.load(f)
+    offset_wrzesiona_gora = data.get("0", {}).get("offset_gora", 0)
+    offset_wrzesiona_dol = data.get("0", {}).get("offset_dol", 0)
+except (FileNotFoundError, json.JSONDecodeError):
+    print("Błąd odczytu pliku JSON! Użyto wartości domyślnych.")
+    offset_wrzesiona_gora = 0
+    offset_wrzesiona_dol = 0
+
+offset_wrzesiona = offset_wrzesiona_gora if aktualny_tryb == "Góra" else offset_wrzesiona_dol
 offset_narzedzia = odczytaj_offset(toolNr)
 
 # Obliczenie nowego offsetu
