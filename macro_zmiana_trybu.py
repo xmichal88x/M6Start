@@ -5,6 +5,18 @@ import sys
 
 JSON_FILE = "narzedzia.json"
 
+def wczytaj_ustawienia():
+    """Wczytuje ustawienia z JSON i konwertuje wartości na nazwy."""
+    try:
+        with open(JSON_FILE, "r") as f:
+            data = json.load(f)
+        # Zamiana wartości 0/1 na nazwy trybu pracy
+        for tool, params in data.items():
+            params["tryb_pracy"] = TRYB_PRACY_MAP.get(params["tryb_pracy"], "Nieznany")
+        return data
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+
 def odczytaj_tryb_pracy(narzedzie):
     """Odczytuje tryb pracy dla podanego narzędzia z pliku JSON."""
     data = wczytaj_ustawienia()  # Wczytuje dane z pliku JSON
