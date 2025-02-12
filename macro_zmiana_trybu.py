@@ -5,13 +5,16 @@ import sys
 
 JSON_FILE = "narzedzia.json"
 
-# Funkcja odczytuje tryb pracy narzędzia z pliku JSON
 def odczytaj_tryb_pracy(narzedzie):
-    try:
-        with open(JSON_FILE, "r") as f:
-            data = json.load(f)
-        return data.get(str(narzedzie), {}).get("tryb_pracy", None)
-    except (FileNotFoundError, json.JSONDecodeError):
+    """Odczytuje tryb pracy dla podanego narzędzia z pliku JSON."""
+    data = wczytaj_ustawienia()  # Wczytuje dane z pliku JSON
+
+    # Sprawdza, czy narzędzie istnieje w danych
+    if str(narzedzie) in data:
+        tryb_pracy = data[str(narzedzie)]["tryb_pracy"]  # Pobiera tryb pracy
+        return tryb_pracy
+    else:
+        messagebox.showerror("Błąd", f"Narzędzie {narzedzie} nie znaleziono w pliku JSON.")
         return None
 
 # Funkcja odczytuje offset dla danego narzędzia z SimCNC
