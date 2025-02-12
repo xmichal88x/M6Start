@@ -46,45 +46,47 @@ def sprawdz_aktualny_tryb():
         return "Dół"
     return None
 
-# Sprawdzenie narzędzia aktualnie zamontowanego we wrzecionie
-toolNr = d.getSpindleToolNumber()
-if toolNr == 0:
-    print("Brak narzędzia w uchwycie. Pominięto zmianę offsetu.")
-    sys.exit(0)
+def monitoruj_tryb_pracy():
+    while True:
+        toolNr = d.getSpindleToolNumber()
+        if toolNr == 0:
+            time.sleep(1)
+            continue
 
-# Pobranie zapisanej konfiguracji narzędzia
-zapisany_tryb = odczytaj_tryb_pracy(toolNr)
-aktualny_tryb = sprawdz_aktualny_tryb()
+        zapisany_tryb = odczytaj_tryb_pracy(toolNr)
+        aktualny_tryb = sprawdz_aktualny_tryb()
 
-if zapisany_tryb == aktualny_tryb:
-    print("Tryb pracy nie uległ zmianie. Brak potrzeby aktualizacji offsetu.")
-    sys.exit(0)
+        if zapisany_tryb == aktualny_tryb:
+            time.sleep(1)
+            continue
 
-print(f"Wykryto zmianę trybu pracy narzędzia! {zapisany_tryb} -> {aktualny_tryb}")
+        print(f"Wykryto zmianę trybu pracy narzędzia! {zapisany_tryb} -> {aktualny_tryb}")
 
-# Pobranie offsetu wrzeciona dla nowego trybu
-try:
-    with open(JSON_FILE, "r") as f:
-        data = json.load(f)
-    offset_wrzesiona_gora = data.get("0", {}).get("offset_gora", 0)
-    offset_wrzesiona_dol = data.get("0", {}).get("offset_dol", 0)
-except (FileNotFoundError, json.JSONDecodeError):
-    print("Błąd odczytu pliku JSON! Użyto wartości domyślnych.")
-    offset_wrzesiona_gora = 0
-    offset_wrzesiona_dol = 0
+        try:
+            with open(JSON_FILE, "r") as f:
+                data = json.load(f)
+            offset_wrzesiona_gora = data.get("0", {}).get("offset_gora", 0)
+            offset_wrzesiona_dol = data.get("0", {}).get("offset_dol", 0)
+        except (FileNotFoundError, json.JSONDecodeError):
+            print("Błąd odczytu pliku JSON! Użyto wartości domyślnych.")
+            offset_wrzesiona_gora = 0
+            offset_wrzesiona_dol = 0
 
-offset_wrzesiona = offset_wrzesiona_gora if aktualny_tryb == "Góra" else offset_wrzesiona_dol
-offset_narzedzia = odczytaj_offset(toolNr)
+        offset_wrzesiona = offset_wrzesiona_gora if aktualny_tryb == "Góra" else offset_wrzesiona_dol
+        offset_narzedzia = odczytaj_offset(toolNr)
 
-# Obliczenie nowego offsetu
-offset_nowy = offset_narzedzia - offset_wrzesiona
-print(f"Nowy obliczony offset: {offset_nowy:.4f}")
+        offset_nowy = offset_narzedzia - offset_wrzesiona
+        print(f"Nowy obliczony offset: {offset_nowy:.4f}")
 
-# Wyświetlenie komunikatu i decyzja użytkownika
-wybor = input("Czy chcesz wykonać nowy pomiar? (T/N): ").strip().lower()
-if wybor == "t":
-    print("Uruchamiam pomiar długości narzędzia...")
-    exec(open("tool_probe.py").read())
-else:
-    zapisz_offset(toolNr, offset_nowy)
-    print("Offset został zapisany w tabeli narzędzi.")
+        wybor = input("Czy chcesz wykonać nowy pomiar? (T/N): ").strip().lower()
+        if wybor == "t":
+            print("Uruchamiam pomiar długości narzędzia...")
+            exec(open("tool_probe.py").read())
+        else:
+            zapisz_offset(toolNr, offset_nowy)
+            print("Offset został zapisany w tabeli narzędzi.")
+
+        time.sleep(1)  # Uniknięcie nadmiernego obciążenia CPU
+
+if __name__ == "__main__":
+    monitoruj_tryb_pracy()
