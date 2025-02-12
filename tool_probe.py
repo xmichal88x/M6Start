@@ -11,6 +11,8 @@ JSON_FILE = "narzedzia.json"
 # Macro START - Uruchomienie procedury pomiaru długości narzędzia
 #############################################
 
+ustaw_stan_procesu("Pomiar")
+
 # Wyłącz wrzeciono
 d.setSpindleState(SpindleState.OFF)
 
@@ -77,3 +79,4 @@ d.moveToPosition(CoordMode.Machine, machine_pos, FEED_PROBE_MOVE)
 
 # Zakończenie programu
 print(f"Tool({toolNr}) offset set to: {toolOffset:.4f}")
+ustaw_stan_procesu(None)
