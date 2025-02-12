@@ -1,9 +1,7 @@
 from ___CONF import *
-import json
+from ___FUNCTION import *
 import time
 import sys
-
-JSON_FILE = "narzedzia.json"
 
 def wczytaj_ustawienia():
     """Wczytuje ustawienia z JSON i konwertuje wartości na nazwy."""
