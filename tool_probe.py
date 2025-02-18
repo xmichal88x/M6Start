@@ -1,6 +1,7 @@
 
 
-from ___CONF import * 
+from ___CONF import *
+from ___FUNCTION import *
 import sys
 import time
 import json
