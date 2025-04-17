@@ -465,17 +465,33 @@ def main():
     #-----------------------------------------------------------
     if tool_old_id > 0:
         if get_digital_input(IN_TOOL_INSIDE):
-                       
-            # move to the toolholder
-            # Obliczenie nowej pozycji na podstawie ToolOld
-            machine_pos[X] = X_BASE + (X_TOOLOFFSET * (tool_old_pocket_id - 1))
+
+            # Obliczenie pozycji narzędzia
+            tool_pos_x = X_BASE + (X_TOOLOFFSET * (tool_old_pocket_id - 1))
+
+            # Określenie czujnika i pozycji sprawdzającej
+            if tool_old_pocket_id <= 10:
+                # Lewy czujnik (pozycja -2.5 offsetu od X_BASE)
+                check_sensor_input = IN_Narzedzie_W_Magazynie
+                sensor_pos_x = tool_pos_x - (2.5 * X_TOOLOFFSET)
+            else:
+                # Prawy czujnik (pozycja +2.5 offsetu od X_BASE)
+                check_sensor_input = IN_Narzedzie_W_Magazynie_2
+                sensor_pos_x = tool_pos_x + (2.5 * X_TOOLOFFSET)
+            
+            # Podjazd do pozycji czujnika
+            machine_pos[X] = sensor_pos_x
             machine_pos[Y] = Y_FORSLIDE
             d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
             
-            # Sprawdź, czy jest wolne miejsce w magazynie narzędziowym
-            if not get_digital_input(IN_Narzedzie_W_Magazynie):
+            # Sprawdzenie, czy narzędzie jest obecne
+            if not get_digital_input(check_sensor_input):
                 throwMessage(msg_magazine, "exit")
             
+            # Podjedź do pozycji narzędzia
+            machine_pos[X] = tool_pos_x
+            d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)            
+
             # opuść Agregat
             aggregate_down()
             
@@ -510,23 +526,37 @@ def main():
         if get_digital_input(IN_TOOL_INSIDE):
             throwMessage(msg_tool_unload_error, "exit")
             
-        # podnieś Agregat
+        # Podnieś Agregat
         aggregate_up()
+
+        # Obliczenie pozycji narzędzia
+        tool_pos_x = X_BASE + (X_TOOLOFFSET * (tool_new_pocket_id - 1))
         
-        # Sprawdź, czy narzędzie jest w magazynie narzędzi
+        # Określenie czujnika i pozycji sprawdzającej
+        if tool_new_pocket_id <= 10:
+            # Lewy czujnik (pozycja -2.5 offsetu od X_BASE)
+            check_sensor_input = IN_Narzedzie_W_Magazynie
+            sensor_pos_x = tool_pos_x - (2.5 * X_TOOLOFFSET)
+        else:
+            # Prawy czujnik (pozycja +2.5 offsetu od X_BASE)
+            check_sensor_input = IN_Narzedzie_W_Magazynie_2
+            sensor_pos_x = tool_pos_x + (2.5 * X_TOOLOFFSET)
+        
+        # Podjazd do pozycji czujnika
+        machine_pos[X] = sensor_pos_x
         machine_pos[Y] = Y_FORSLIDE
-        machine_pos[X] = X_BASE + (X_TOOLOFFSET * (tool_new_pocket_id - 1))
         d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
         
-        if get_digital_input(IN_Narzedzie_W_Magazynie):
+        # Sprawdzenie, czy narzędzie JEST obecne w magazynie
+        if get_digital_input(check_sensor_input):
             throwMessage(msg_magazine_get, "exit")
-    
-        # przejedź do pozycji nowego narzędzia
+        
+        # Podjedź do pozycji nowego narzędzia
+        machine_pos[X] = tool_pos_x
         machine_pos[Y] = Y_LOCK
-        machine_pos[X] = X_BASE + (X_TOOLOFFSET * (tool_new_pocket_id - 1))
         d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
-    
-        # otwórz uchwyt
+        
+        # Otwórz uchwyt
         open_collet()
     
         # opuść Agregat
