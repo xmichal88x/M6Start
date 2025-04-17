@@ -185,6 +185,9 @@ if toolNr == 0:
 # Pobranie aktualnej pozycji maszyny
 machine_pos = d.getPosition(CoordMode.Machine)
 
+# Podnieś szczotkę
+curtain_up()
+
 # Podniesienie osi Z do bezpiecznej wysokości
 machine_pos[Z] = Z_SAFE
 d.moveToPosition(CoordMode.Machine, machine_pos, FEED_PROBE_MOVE)
