@@ -196,6 +196,7 @@ def curtain_up():
     while not get_digital_input(IN_CURTAIN_UP):
         if time.time() - start_time > 5:
             print("Błąd: Szczotka nie osiągnęła pozycji górnej.")
+            sys.exit(0)
             return False
         time.sleep(0.1)
     if mode == "debug":
@@ -217,6 +218,7 @@ def curtain_down():
     while not get_digital_input(IN_CURTAIN_DOWN):
         if time.time() - start_time > 5:
             print("Błąd: Szczotka nie osiągnęła pozycji dolnej.")
+            sys.exit(0)
             return False
         time.sleep(0.1)
     if mode == "debug":    
@@ -238,6 +240,7 @@ def aggregate_up():
     while not get_digital_input(IN_AGGREGATE_UP):
         if time.time() - start_time > 5:
             print("Błąd: Agregat nie osiągnął pozycji górnej.")
+            sys.exit(0)
             return False
         time.sleep(0.1)
     if mode == "debug":
@@ -260,6 +263,7 @@ def aggregate_down():
     while not get_digital_input(IN_AGGREGATE_DOWN):
         if time.time() - start_time > 5:
             print("Błąd: Agregat nie osiągnął pozycji dolnej.")
+            sys.exit(0)
             return False
         time.sleep(0.1)
     if mode == "debug":
@@ -325,6 +329,7 @@ def close_collet():
     while get_digital_input(IN_COLLET_OPEN):
         if time.time() - start_time > 5:
             print("Błąd: Uchwyt narzędzia nie zamknął się.")
+            throwMessage(msg_clamp_error_close, "exit")
             return False
         time.sleep(0.1)
     if mode == "debug":
@@ -349,6 +354,7 @@ def open_magazine():
     while not get_digital_input(IN_Oslona_Pion_Open):
         if time.time() - start_time > 5:
             print("Błąd: Osłona pionowa nie otworzyła się.")
+            sys.exit(0)
             return False
         time.sleep(0.1)
 
@@ -357,6 +363,7 @@ def open_magazine():
     while not get_digital_input(IN_Oslona_Poz_Open):
         if time.time() - start_time > 5:
             print("Błąd: Osłona pozioma nie otworzyła się.")
+            sys.exit(0)
             return False
         time.sleep(0.1)
     if mode == "debug":
@@ -517,6 +524,10 @@ def main():
                         
             # otwórz uchwyt
             open_collet()
+
+            # exit is collet not open
+            if not open_collet():
+                throwMessage(msg_clamp_error, "exit")
             
             # załącz czyszczenie stożka
             set_digital_output(OUT_CLEANCONE , True)
@@ -573,6 +584,10 @@ def main():
         
         # Otwórz uchwyt
         open_collet()
+        
+        # exit is collet not open             
+        if not open_collet():                 
+            throwMessage(msg_clamp_error, "exit")()
     
         # opuść Agregat
         aggregate_down()
