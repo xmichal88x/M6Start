@@ -471,13 +471,13 @@ def main():
 
             # Określenie czujnika i pozycji sprawdzającej
             if tool_old_pocket_id <= 10:
-                # Lewy czujnik (pozycja -2.5 offsetu od X_BASE)
+                # Lewy czujnik (pozycja +2.5 offsetu od X_BASE)
                 check_sensor_input = IN_Narzedzie_W_Magazynie
-                sensor_pos_x = tool_pos_x - (2.5 * X_TOOLOFFSET)
-            else:
-                # Prawy czujnik (pozycja +2.5 offsetu od X_BASE)
-                check_sensor_input = IN_Narzedzie_W_Magazynie_2
                 sensor_pos_x = tool_pos_x + (2.5 * X_TOOLOFFSET)
+            else:
+                # Prawy czujnik (pozycja -2.5 offsetu od X_BASE)
+                check_sensor_input = IN_Narzedzie_W_Magazynie_2
+                sensor_pos_x = tool_pos_x - (2.5 * X_TOOLOFFSET)
             
             # Podjazd do pozycji czujnika
             machine_pos[X] = sensor_pos_x
@@ -534,13 +534,13 @@ def main():
         
         # Określenie czujnika i pozycji sprawdzającej
         if tool_new_pocket_id <= 10:
-            # Lewy czujnik (pozycja -2.5 offsetu od X_BASE)
+            # Lewy czujnik (pozycja +2.5 offsetu od X_BASE)
             check_sensor_input = IN_Narzedzie_W_Magazynie
-            sensor_pos_x = tool_pos_x - (2.5 * X_TOOLOFFSET)
-        else:
-            # Prawy czujnik (pozycja +2.5 offsetu od X_BASE)
-            check_sensor_input = IN_Narzedzie_W_Magazynie_2
             sensor_pos_x = tool_pos_x + (2.5 * X_TOOLOFFSET)
+        else:
+            # Prawy czujnik (pozycja -2.5 offsetu od X_BASE)
+            check_sensor_input = IN_Narzedzie_W_Magazynie_2
+            sensor_pos_x = tool_pos_x - (2.5 * X_TOOLOFFSET)
         
         # Podjazd do pozycji czujnika
         machine_pos[X] = sensor_pos_x
