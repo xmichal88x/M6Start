@@ -36,7 +36,6 @@ msg_unknow_tool         = "⚠️ Nieznane narzędzie w uchwycie"
 msg_magazine            = "⚠️ Brak miejsca w magazynie narzędzi"
 msg_magazine_get        = "⚠️ Brak narzędzia w magazynie narzędzi"
 
-
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # FUNCTION to throw message in py status line and optionally end program 
 # Args: message(string), action(boolean)
@@ -187,7 +186,8 @@ def curtain_up():
     Podnosi szczotkę.
     - Sprawdza czujnik pozycji górnej szczotki.
     """
-    print("Rozpoczynam podnoszenie szczotki...")
+    if mode == "debug":
+        print("Rozpoczynam podnoszenie szczotki...")
     set_digital_output(OUT_CURTAIN_UP, True)
     time.sleep(0.25)
     set_digital_output(OUT_CURTAIN_UP, False)
@@ -198,7 +198,8 @@ def curtain_up():
             print("Błąd: Szczotka nie osiągnęła pozycji górnej.")
             return False
         time.sleep(0.1)
-    print("Szczotka podniesiona.")
+    if mode == "debug":
+        print("Szczotka podniesiona.")
     return True
 
 def curtain_down():
@@ -206,7 +207,8 @@ def curtain_down():
     Opuszcza szczotkę.
     - Sprawdza czujnik pozycji dolnej szczotki.
     """
-    print("Rozpoczynam opuszczanie szczotki...")
+    if mode == "debug":
+        print("Rozpoczynam opuszczanie szczotki...")
     set_digital_output(OUT_CURTAIN_DOWN, True)
     time.sleep(0.25)
     set_digital_output(OUT_CURTAIN_DOWN, False)
@@ -217,7 +219,8 @@ def curtain_down():
             print("Błąd: Szczotka nie osiągnęła pozycji dolnej.")
             return False
         time.sleep(0.1)
-    print("Szczotka opuszczona.")
+    if mode == "debug":    
+        print("Szczotka opuszczona.")
     return True
 
 def aggregate_up():
@@ -225,7 +228,8 @@ def aggregate_up():
     Podnosi agregat.
     - Sprawdza czujnik pozycji górnej agregatu.
     """
-    print("Rozpoczynam podnoszenie agregatu...")
+    if mode == "debug":
+        print("Rozpoczynam podnoszenie agregatu...")
     set_digital_output(OUT_AGGREGATE_UP, True)
     time.sleep(0.25)
     set_digital_output(OUT_AGGREGATE_UP, False)
@@ -236,7 +240,8 @@ def aggregate_up():
             print("Błąd: Agregat nie osiągnął pozycji górnej.")
             return False
         time.sleep(0.1)
-    print("Agregat podniesiony.")
+    if mode == "debug":
+        print("Agregat podniesiony.")
     return True
 
 
@@ -245,7 +250,8 @@ def aggregate_down():
     Opuszcza agregat.
     - Sprawdza czujnik pozycji dolnej agregatu.
     """
-    print("Rozpoczynam opuszczanie agregatu...")
+    if mode == "debug":
+        print("Rozpoczynam opuszczanie agregatu...")
     set_digital_output(OUT_AGGREGATE_DOWN, True)
     time.sleep(0.25)
     set_digital_output(OUT_AGGREGATE_DOWN, False)
@@ -256,26 +262,31 @@ def aggregate_down():
             print("Błąd: Agregat nie osiągnął pozycji dolnej.")
             return False
         time.sleep(0.1)
-    print("Agregat opuszczony.")
+    if mode == "debug":
+        print("Agregat opuszczony.")
     return True
 
 def activate_tool_change_position():
     """
     Aktywuje pozycję wymiany narzędzia.
     """
-    print("Aktywuję pozycję wymiany narzędzia...")
+    if mode == "debug":
+        print("Aktywuję pozycję wymiany narzędzia...")
     set_digital_output(OUT_TOOL_CHANGE_POS, True)
     time.sleep(0.25)
-    print("Pozycja wymiany aktywowana.")
+    if mode == "debug":
+        print("Pozycja wymiany aktywowana.")
 
 def deactivate_tool_change_position():
     """
     Dezaktywuje pozycję wymiany narzędzia.
     """
-    print("Dezaktywuję pozycję wymiany narzędzia...")
+    if mode == "debug":
+        print("Dezaktywuję pozycję wymiany narzędzia...")
     set_digital_output(OUT_TOOL_CHANGE_POS, False)
     time.sleep(0.25)
-    print("Pozycja wymiany dezaktywowana.")
+    if mode == "debug":
+        print("Pozycja wymiany dezaktywowana.")
 
 
 def open_collet():
@@ -283,7 +294,8 @@ def open_collet():
     Otwiera uchwyt narzędzia.
     - Sprawdza czujnik potwierdzający otwarcie uchwytu.
     """
-    print("Rozpoczynam otwieranie uchwytu narzędzia...")
+    if mode == "debug":
+        print("Rozpoczynam otwieranie uchwytu narzędzia...")
     set_digital_output(OUT_COLLET_OPEN, True)
     time.sleep(0.25)
     set_digital_output(OUT_COLLET_OPEN, False)
@@ -294,8 +306,8 @@ def open_collet():
             print("Błąd: Uchwyt narzędzia nie otworzył się.")
             return False
         time.sleep(0.1)
-
-    print("Uchwyt narzędzia otwarty.")
+    if mode == "debug":
+        print("Uchwyt narzędzia otwarty.")
     return True
 
 def close_collet():
@@ -303,7 +315,8 @@ def close_collet():
     Zamyka uchwyt narzędzia.
     - Sprawdza czujnik potwierdzający zamknięcie uchwytu.
     """
-    print("Rozpoczynam zamykanie uchwytu narzędzia...")
+    if mode == "debug":
+        print("Rozpoczynam zamykanie uchwytu narzędzia...")
     set_digital_output(OUT_COLLET_CLOSE, True)
     time.sleep(0.25)
     set_digital_output(OUT_COLLET_CLOSE, False)
@@ -314,8 +327,8 @@ def close_collet():
             print("Błąd: Uchwyt narzędzia nie zamknął się.")
             return False
         time.sleep(0.1)
-
-    print("Uchwyt narzędzia zamknięty.")
+    if mode == "debug":
+        print("Uchwyt narzędzia zamknięty.")
     return True
 
 def open_magazine():
@@ -325,7 +338,8 @@ def open_magazine():
     - Sprawdza czujniki otwarcia osłon.
     """
     # Otwórz osłonę pionową i poziomą
-    print("Otwieram magazyn...")
+    if mode == "debug":
+        print("Otwieram magazyn...")
     set_digital_output(OUT_MAGAZINE_OPEN, True)
     time.sleep(0.25)
     set_digital_output(OUT_MAGAZINE_OPEN, False)
@@ -345,8 +359,8 @@ def open_magazine():
             print("Błąd: Osłona pozioma nie otworzyła się.")
             return False
         time.sleep(0.1)
-
-    print("Magazyn został otwarty.")
+    if mode == "debug":
+        print("Magazyn został otwarty.")
     return True
 
 def close_magazine():
@@ -355,7 +369,8 @@ def close_magazine():
     - Zamykana jest osłona pionowa i pozioma.
     - Sprawdza czujniki zamknięcia osłon.
     """
-    print("Zamykanie magazynu...")
+    if mode == "debug":
+        print("Zamykanie magazynu...")
 
     # Zamknij osłonę poziomą
     set_digital_output(OUT_MAGAZINE_CLOSE, True)
@@ -377,8 +392,8 @@ def close_magazine():
             print("Błąd: Osłona pionowa nie zamknęła się.")
             return False
         time.sleep(0.1)
-
-    print("Magazyn został zamknięty.")
+    if mode == "debug":
+        print("Magazyn został zamknięty.")
     return True
 
 #-----------------------------------------------------------
