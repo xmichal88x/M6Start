@@ -26,6 +26,8 @@ OUT_CURTAIN_UP = (MAIN_MODULE_ID, 9, MAIN_MODULE_TYPE)             # Wyjście do
 OUT_COLLET_OPEN = (MAIN_MODULE_ID, 10, MAIN_MODULE_TYPE)           # Wyjście do otwierania uchwytu narzędzia
 OUT_COLLET_CLOSE = (MAIN_MODULE_ID, 11, MAIN_MODULE_TYPE)          # Wyjście do zamykania uchwytu narzędzia
 OUT_CLEANCONE = (MAIN_MODULE_ID, 12, MAIN_MODULE_TYPE)             # Czyszczenie stożka
+OUT_LAMP_OGOLNA = (MAIN_MODULE_ID, 13, MAIN_MODULE_TYPE)           # Kontrolka cykl pracy
+OUT_LAMP_START = (MAIN_MODULE_ID, 14, MAIN_MODULE_TYPE)            # Kontrolka START
 
 # WEJŚCIA
 IN_AGGREGATE_UP = (MAIN_MODULE_ID, 3, MAIN_MODULE_TYPE)            # Czujnik górnej pozycji agregatu A1
@@ -41,6 +43,8 @@ IN_TOOL_INSIDE = (MAIN_MODULE_ID, 12, MAIN_MODULE_TYPE)            # Czujnik obe
 IN_Narzedzie_W_Magazynie = (MAIN_MODULE_ID, 14, MAIN_MODULE_TYPE)  # Czujnik obecności narzędzia w magazynie
 IN_PRESSURE = (MAIN_MODULE_ID, 16, MAIN_MODULE_TYPE)               # Czujnik ciśnienia (active when ok)
 IN_btn_tools_warehouse = (MAIN_MODULE_ID, 17, MAIN_MODULE_TYPE)    # Przycisk obsługi magazynu narzędzi 
+IN_btn_pauza = (MAIN_MODULE_ID, 18, MAIN_MODULE_TYPE)              # Przycisk PAUZA
+IN_btn_start = (MAIN_MODULE_ID, 19, MAIN_MODULE_TYPE)              # Przycisk START
 
 #-----------------------------------------------------------
 # IO Module 0 (IO_0_MODULE_ID)
