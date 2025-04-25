@@ -28,6 +28,7 @@ OUT_COLLET_CLOSE = (MAIN_MODULE_ID, 11, MAIN_MODULE_TYPE)          # Wyjście do
 OUT_CLEANCONE = (MAIN_MODULE_ID, 12, MAIN_MODULE_TYPE)             # Czyszczenie stożka
 OUT_LAMP_OGOLNA = (MAIN_MODULE_ID, 13, MAIN_MODULE_TYPE)           # Kontrolka cykl pracy
 OUT_LAMP_START = (MAIN_MODULE_ID, 14, MAIN_MODULE_TYPE)            # Kontrolka START
+OUT_ODCIĄG = (MAIN_MODULE_ID, 15, MAIN_MODULE_TYPE)                # Odciąg wiórów
 
 # WEJŚCIA
 IN_AGGREGATE_UP = (MAIN_MODULE_ID, 3, MAIN_MODULE_TYPE)            # Czujnik górnej pozycji agregatu A1
