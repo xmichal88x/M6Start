@@ -11,7 +11,7 @@ TRYB_PRACY_REVERSE = {"Dół": 0, "Góra": 1}
 
 timezone = time.localtime() 
 
-mode = "debug" # normal or debug (for more info output)
+mode = "normal" # normal or debug (for more info output)
 
 #-----------------------------------------------------------
 # Check status of pin 
@@ -539,7 +539,7 @@ def main():
             # zamknij uchwyt, wyłącz czyszczenie stożka, podnieś agregat i wyświetl wiadomość
             close_collet()
             set_digital_output(OUT_CLEANCONE, False)
-            aggregate_up()    
+            # aggregate_up()    
             d.setSpindleToolNumber(0)
             throwMessage(msg_tool_dropoff, "")
     
@@ -551,9 +551,13 @@ def main():
     if tool_new_id > 0:
         if get_digital_input(IN_TOOL_INSIDE):
             throwMessage(msg_tool_unload_error, "exit")
+        
+        # odjedź na bezpieczną pozycję osi Z
+            machine_pos[Z] = Z_SAFE
+            d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
             
         # Podnieś Agregat
-        aggregate_up()
+        # aggregate_up()
 
         # Obliczenie pozycji narzędzia
         tool_pos_x = X_BASE + (X_TOOLOFFSET * (tool_new_pocket_id - 1))
