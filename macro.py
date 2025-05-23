@@ -41,15 +41,14 @@ msg_magazine_get        = "⚠️ Brak narzędzia w magazynie narzędzi"
 # Args: message(string), action(boolean)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def throwMessage(message, action):
-
-    ttime = time.strftime("%H:%M:%S", timezone)
-    print("\n"  + ttime + " - " + message)
+    ttime = time.strftime("%H:%M:%S", timezone)    
 
     if message == True: 
-        
+        print("\n"  + ttime + " - " + message)
         msg.info("\n"  + ttime + " - " + message)
 
     if action == "exit":
+        d.stopTrajectory( )
         sys.exit(0)
 
 #-----------------------------------------------------------
@@ -196,6 +195,7 @@ def curtain_up():
     while not get_digital_input(IN_CURTAIN_UP):
         if time.time() - start_time > 5:
             print("Błąd: Szczotka nie osiągnęła pozycji górnej.")
+            d.stopTrajectory( )
             sys.exit(0)
             return False
         time.sleep(0.1)
@@ -218,6 +218,7 @@ def curtain_down():
     while not get_digital_input(IN_CURTAIN_DOWN):
         if time.time() - start_time > 5:
             print("Błąd: Szczotka nie osiągnęła pozycji dolnej.")
+            d.stopTrajectory( )
             sys.exit(0)
             return False
         time.sleep(0.1)
@@ -240,6 +241,7 @@ def aggregate_up():
     while not get_digital_input(IN_AGGREGATE_UP):
         if time.time() - start_time > 5:
             print("Błąd: Agregat nie osiągnął pozycji górnej.")
+            d.stopTrajectory( )
             sys.exit(0)
             return False
         time.sleep(0.1)
@@ -263,6 +265,7 @@ def aggregate_down():
     while not get_digital_input(IN_AGGREGATE_DOWN):
         if time.time() - start_time > 5:
             print("Błąd: Agregat nie osiągnął pozycji dolnej.")
+            d.stopTrajectory( )
             sys.exit(0)
             return False
         time.sleep(0.1)
@@ -355,6 +358,7 @@ def open_magazine():
     while not get_digital_input(IN_Oslona_Pion_Open):
         if time.time() - start_time > 5:
             print("Błąd: Osłona pionowa nie otworzyła się.")
+            d.stopTrajectory( )
             sys.exit(0)
             return False
         time.sleep(0.1)
@@ -364,6 +368,7 @@ def open_magazine():
     while not get_digital_input(IN_Oslona_Poz_Open):
         if time.time() - start_time > 5:
             print("Błąd: Osłona pozioma nie otworzyła się.")
+            d.stopTrajectory( )
             sys.exit(0)
             return False
         time.sleep(0.1)
@@ -440,7 +445,8 @@ def main():
     
     # exit if tool is already in spindle
     if tool_old_id == tool_new_id: 
-        throwMessage(msg_old_equal_new, "exit")
+        throwMessage(msg_old_equal_new, "")
+        sys.exit(0)
     
     # exit on tool zero
     if tool_new_id == 0: 
@@ -608,10 +614,6 @@ def main():
         d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
         machine_pos[Z] = Z_TOOLGET
         d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
-        machine_pos[Z] = Z_TOOLGET + Z_LIFT
-        d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
-        machine_pos[Z] = Z_TOOLGET
-        d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_final)
     
         # zamknij uchwyt i wyłącz czyszczenie stożka
         close_collet()
