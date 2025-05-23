@@ -308,6 +308,7 @@ def open_collet():
     while not get_digital_input(IN_COLLET_OPEN):
         if time.time() - start_time > 5:
             print("Błąd: Uchwyt narzędzia nie otworzył się.")
+            throwMessage(msg_clamp_error, "exit")
             return False
         time.sleep(0.1)
     if mode == "debug":
