@@ -42,13 +42,15 @@ msg_magazine_get        = "⚠️ Brak narzędzia w magazynie narzędzi"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def throwMessage(message, action):
     ttime = time.strftime("%H:%M:%S", timezone)    
+    print("\n"  + ttime + " - " + message)
 
     if message == True: 
-        print("\n"  + ttime + " - " + message)
+        
         msg.info("\n"  + ttime + " - " + message)
 
     if action == "exit":
-        d.stopTrajectory( )
+        d.setTrajectoryPause(True)
+        time.sleep(3.5)      
         sys.exit(0)
 
 #-----------------------------------------------------------
@@ -442,6 +444,7 @@ def main():
     # exit if air pressure is too low 
     if not get_digital_input(IN_PRESSURE):  
         throwMessage(msg_air_warning, "exit")
+
     
     # exit if tool is already in spindle
     if tool_old_id == tool_new_id: 
