@@ -1,40 +1,36 @@
 import time
-import sys
-from ___CONF import *
+from ___CONF import * 
 
-Z_LIMIT_SAFE = -210  # Twardy limit – poziom stołu maszyny w maszynowych współrzędnych
 
 def check_z_zero_safe():
     try:
-        pos = d.getPosition(CoordMode.Machine)
-        machine_z = pos[Z]
-
-        work_offset = d.getWorkOffset(d.getWorkOffsetNumber())
-        work_z_zero = work_offset[Z]
-
         tool_number = d.getSpindleToolNumber()
         tool_length = d.getToolLength(tool_number)
 
-        # >>> Sprawdzenie długości narzędzia <<<
-        if tool_length is None or tool_length <= 0:
-            msg.err(f"⚠️ Narzędzie T{tool_number} nie ma ustawionej długości!")
-            d.stopTrajectory()
-            sys.exit(1)
+        if tool_length is None or tool_length >= 0:
+            msg.err(f"Narzędzie T{tool_number} ma niepoprawną długość: {tool_length}")
+            d.setTrajectoryPause(True)
+            msg.info("Wciśnij START po korekcie.")
+            return False
 
-        # >>> Główne sprawdzenie Z <<<
-        z_real = machine_z - work_z_zero + tool_length
+        work_offset_z = d.getWorkOffset(d.getWorkOffsetNumber())[Z]
+        z_machine_at_work_zero = work_offset_z + tool_length
 
-        if z_real < Z_LIMIT_SAFE:
-            msg.err(f"❗ Niebezpieczna pozycja Z=0! ({z_real:.2f} mm poniżej limitu stołu)")
-            d.stopTrajectory()
-            sys.exit(0)
+        # msg.info(f"Z maszyny przy Z=0 roboczym: {z_machine_at_work_zero:.3f} mm")
+
+        if z_machine_at_work_zero < Z_LIMIT_SAFE:
+            d.setTrajectoryPause(True)
+            msg.err(f"Z=0 robocze ({z_machine_at_work_zero:.2f}) poniżej limitu stołu ({Z_LIMIT_SAFE})")
+            msg.info("Program wstrzymany. Skoryguj bazę lub długość narzędzia.")
+            return False
         else:
-            print(f"✅ Z=0 bezpieczne: {z_real:.2f} mm nad limitem {Z_LIMIT_SAFE}")
+            # msg.info(f"Z=0 bezpieczne: {z_machine_at_work_zero:.2f} mm nad limitem {Z_LIMIT_SAFE}")
+            return True
 
     except Exception as e:
-        msg.err(f"🛑 Błąd sprawdzania Z=0: {str(e)}")
-        d.stopTrajectory()
-        sys.exit(1)
+        d.setTrajectoryPause(True)
+        msg.err(f"Błąd sprawdzania Z=0: {str(e)}")
+        msg.info("Wciśnij START po naprawie błędu.")
+        return False
 
-print("📏 Sprawdzanie bezpieczeństwa Z=0 względem stołu...")
 check_z_zero_safe()
