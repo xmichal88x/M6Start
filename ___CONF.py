@@ -30,7 +30,7 @@ OUT_LAMP_OGOLNA = (MAIN_MODULE_ID, 13, MAIN_MODULE_TYPE)           # Kontrolka c
 OUT_LAMP_START = (MAIN_MODULE_ID, 14, MAIN_MODULE_TYPE)            # Kontrolka START
 OUT_ODCIĄG = (MAIN_MODULE_ID, 15, MAIN_MODULE_TYPE)                # Odciąg wiórów
 
-# WEJŚCIA
+#WEJŚCIA
 IN_AGGREGATE_UP = (MAIN_MODULE_ID, 3, MAIN_MODULE_TYPE)            # Czujnik górnej pozycji agregatu A1
 IN_AGGREGATE_DOWN = (MAIN_MODULE_ID, 4, MAIN_MODULE_TYPE)          # Czujnik dolnej pozycji agregatu A1
 IN_CURTAIN_DOWN = (MAIN_MODULE_ID, 5, MAIN_MODULE_TYPE)            # Czujnik dolnej pozycji szczotki
@@ -43,7 +43,7 @@ IN_COLLET_OPEN = (MAIN_MODULE_ID, 13, MAIN_MODULE_TYPE)            # Czujnik otw
 IN_TOOL_INSIDE = (MAIN_MODULE_ID, 12, MAIN_MODULE_TYPE)            # Czujnik obecności narzędzia w uchwycie 1==True
 IN_Narzedzie_W_Magazynie = (MAIN_MODULE_ID, 14, MAIN_MODULE_TYPE)  # Czujnik obecności narzędzia w magazynie
 IN_PRESSURE = (MAIN_MODULE_ID, 16, MAIN_MODULE_TYPE)               # Czujnik ciśnienia (active when ok)
-IN_btn_tools_warehouse = (MAIN_MODULE_ID, 17, MAIN_MODULE_TYPE)    # Przycisk obsługi magazynu narzędzi 
+IN_btn_tools_warehouse = (MAIN_MODULE_ID, 17, MAIN_MODULE_TYPE)    # Przycisk obsługi magazynu narzędzi
 IN_btn_pauza = (MAIN_MODULE_ID, 18, MAIN_MODULE_TYPE)              # Przycisk PAUZA
 IN_btn_start = (MAIN_MODULE_ID, 19, MAIN_MODULE_TYPE)              # Przycisk START
 
@@ -68,24 +68,26 @@ IN_btn_collet = (IO_0_MODULE_ID, 4, IO_MODULE_TYPE)                # Przycisk ob
 #  Deklaracja zmiennych globalnych
 #-----------------------------------------------------------
 
-Z_TOOLGET = -95           # Z pozycja (absolutna) pobierania/zwalniania narzędzia
+Z_LIMIT_SAFE = -124.75    # Maszynowy limit stołu (bufor 1mm; Z0=125.75)
+
+Z_TOOLGET = -91.5         # Z pozycja (absolutna) pobierania/zwalniania narzędzia
 Z_LIFT = 10               # Odległość unoszenia do czyszczenia stożka
-Z_SAFE = -10              # Bezpieczna Z do poruszania się nad uchwytami narzędzi
-Y_FORSLIDE = 1675         # Y pozycja przed wsunięciem narzędzia do uchwytu
-Y_LOCK = 1915             # Y pozycja do blokowania narzędzia w uchwycie
-X_BASE = 458              # X pozycja pierwszego narzędzia
+Z_SAFE = 20               # Bezpieczna Z do poruszania się nad uchwytami narzędzi
+Y_FORSLIDE = 1710         # Y pozycja przed wsunięciem narzędzia do uchwytu
+Y_LOCK = 1971             # Y pozycja do blokowania narzędzia w uchwycie
+X_BASE = 317              # X pozycja pierwszego narzędzia (868)
 X_TOOLOFFSET = 143.0      # Odległość między narzędziami (2575mm/18)
-TOOLCOUNT = 6             # Maksymalna liczba narzędzi
+TOOLCOUNT = 8             # Maksymalna liczba narzędzi
 
 feed_atc_z_final    = 800           # Z feed before reaching tool
-feed_atc_z_fast     = 8000          # Z feed general
-feed_atc_xy         = 8000          # XY feed in general 
+feed_atc_z_fast     = 10000         # Z feed general
+feed_atc_xy         = 10000         # XY feed in general 
 
 # config
 conf_atc_purge_time = 0.5           # purge time in sec
 conf_tools_special  = {0}           # No automatic tool change 
 conf_tools_noprobe  = {0,10}        # No automatic length probing 
-conf_pause_debounce = 0.5           # debounce time for tool clamp close before checking sensor
+conf_pause_debounce = 1           # debounce time for tool clamp close before checking sensor
 
 #-----------------------------------------------------------
 # Pomiar długości narzędzia
@@ -93,17 +95,17 @@ conf_pause_debounce = 0.5           # debounce time for tool clamp close before 
 
 PROBE_INDEX = 0            # Indeks czujnika pomiarowego (jeśli w systemie jest więcej niż jeden)
 
-PROBE_START_X = 0          # Pozycja startowa X dla pomiaru
-PROBE_START_Y = 0          # Pozycja startowa Y dla pomiaru
-PROBE_START_Z = -10        # Pozycja startowa Z dla pomiaru 
-PROBE_END_Z = -125         # Końcowa pozycja Z do pomiaru (najniższy punkt do którego sonda ma się obniżyć)
-REF_TOOL_PROBE_POS = -120  # Pozycja pomiarowa dla narzędzia odniesienia (np. długość wzorcowego narzędzia)
+PROBE_START_X = 1534          # Pozycja startowa X dla pomiaru
+PROBE_START_Y = 1640            # Pozycja startowa Y dla pomiaru
+PROBE_START_Z = 10         # Pozycja startowa Z dla pomiaru 
+PROBE_END_Z = -200         # Końcowa pozycja Z do pomiaru (najniższy punkt do którego sonda ma się obniżyć)
+REF_TOOL_PROBE_POS = -80  # Pozycja pomiarowa dla narzędzia odniesienia (np. długość wzorcowego narzędzia)
 
 FEED_PROBE_MOVE = 8000     # Prędkość przemieszczania się do punktu pomiarowego
-FEED_PROBE_FAST = 500      # Prędkość szybkiego pomiaru
-FEED_PROBE_SLOW = 250      # Prędkość dokładnego pomiaru
+FEED_PROBE_FAST = 800      # Prędkość szybkiego pomiaru
+FEED_PROBE_SLOW = 100      # Prędkość dokładnego pomiaru
 
-PROBE_LIFT_UP_DIST = 5     # Wysokość podniesienia osi Z przed dokładnym pomiarem
+PROBE_LIFT_UP_DIST = 2     # Wysokość podniesienia osi Z przed dokładnym pomiarem
 PROBE_FINE_DELAY = 0.2     # Opóźnienie przed dokładnym pomiarem (sekundy)
 PROBE_CHECK_DIFF = False   # Czy sprawdzać różnicę między szybkim a dokładnym pomiarem?
 PROBE_MAX_DIFF = 0.1       # Maksymalna różnica pomiarów
