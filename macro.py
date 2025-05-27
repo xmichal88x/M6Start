@@ -68,8 +68,11 @@ spindle_state   =  d.getSpindleState()
 # tool_new_pocket_id  =  tool_new_id
 
 
+# warunek sprawdzania obecnosci narzędzia podczas pobierania
+if check_tool == "nie"    # tak lub nie
+
 # if debug is enabled, output some helpful information
-if mode == "debug":
+if mode == "debug":        # normal or debug (for more info output)
     print(f"{tool_old_id}  -> {tool_new_id}")
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -571,27 +574,31 @@ def main():
 
         # Obliczenie pozycji narzędzia
         tool_pos_x = X_BASE + (X_TOOLOFFSET * (tool_new_pocket_id - 1))
-        
-        # Określenie czujnika i pozycji sprawdzającej
-        if tool_new_pocket_id <= 10:
-            # Lewy czujnik (pozycja +2.5 offsetu od X_BASE)
-            check_sensor_input = IN_Narzedzie_W_Magazynie
-            sensor_pos_x = tool_pos_x + (2.5 * X_TOOLOFFSET)
-        else:
-            # Prawy czujnik (pozycja -2.5 offsetu od X_BASE)
-            check_sensor_input = IN_Narzedzie_W_Magazynie_2
-            sensor_pos_x = tool_pos_x - (2.5 * X_TOOLOFFSET)
-        
-        # Podjazd do pozycji czujnika
-        machine_pos[X] = sensor_pos_x
-        machine_pos[Y] = Y_FORSLIDE
-        d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
-        
-        # Sprawdzenie, czy narzędzie JEST obecne w magazynie
-        if get_digital_input(check_sensor_input):
-            throwMessage(msg_magazine_get, "exit")
+
+        # sprawdz czy narzędzie jest obecne
+        if check_tool == "tak"
+            # Określenie czujnika i pozycji sprawdzającej
+            if tool_new_pocket_id <= 10:
+                # Lewy czujnik (pozycja +2.5 offsetu od X_BASE)
+                check_sensor_input = IN_Narzedzie_W_Magazynie
+                sensor_pos_x = tool_pos_x + (2.5 * X_TOOLOFFSET)
+            else:
+                # Prawy czujnik (pozycja -2.5 offsetu od X_BASE)
+                check_sensor_input = IN_Narzedzie_W_Magazynie_2
+                sensor_pos_x = tool_pos_x - (2.5 * X_TOOLOFFSET)
+            
+            # Podjazd do pozycji czujnika
+            machine_pos[X] = sensor_pos_x
+            machine_pos[Y] = Y_FORSLIDE
+            d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
+            
+            # Sprawdzenie, czy narzędzie JEST obecne w magazynie
+            if get_digital_input(check_sensor_input):
+                throwMessage(msg_magazine_get, "exit")
         
         # Podjedź do pozycji nowego narzędzia
+        machine_pos[Y] = Y_FORSLIDE
+        d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
         machine_pos[X] = tool_pos_x
         machine_pos[Y] = Y_LOCK
         d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
