@@ -14,7 +14,8 @@ timezone = time.localtime()
 mode = "normal" # normal or debug (for more info output)
 
 # warunek sprawdzania obecnosci narzędzia podczas pobierania
-check_tool == "nie"    # tak lub nie
+
+check_tool = False    # True lub False
 
 #-----------------------------------------------------------
 # Check status of pin 
@@ -528,7 +529,7 @@ def main():
             d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)            
 
             # opuść Agregat
-            aggregate_down()
+            # aggregate_down()
             
             machine_pos[Z] = Z_TOOLGET
             d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
@@ -549,10 +550,10 @@ def main():
             machine_pos[Z] = Z_SAFE
             d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_z_fast)
             
-            # zamknij uchwyt, wyłącz czyszczenie stożka, podnieś agregat i wyświetl wiadomość
+            # zamknij uchwyt, wyłącz czyszczenie stożka i wyświetl wiadomość
             close_collet()
             set_digital_output(OUT_CLEANCONE, False)
-            # aggregate_up()    
+             
             d.setSpindleToolNumber(0)
             throwMessage(msg_tool_dropoff, "")
     
@@ -576,7 +577,7 @@ def main():
         tool_pos_x = X_BASE + (X_TOOLOFFSET * (tool_new_pocket_id - 1))
 
         # sprawdz czy narzędzie jest obecne
-        if check_tool == "tak"
+        if check_tool == True:
             # Określenie czujnika i pozycji sprawdzającej
             if tool_new_pocket_id <= 10:
                 # Lewy czujnik (pozycja +2.5 offsetu od X_BASE)
@@ -597,8 +598,6 @@ def main():
                 throwMessage(msg_magazine_get, "exit")
         
         # Podjedź do pozycji nowego narzędzia
-        machine_pos[Y] = Y_FORSLIDE
-        d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
         machine_pos[X] = tool_pos_x
         machine_pos[Y] = Y_LOCK
         d.moveToPosition(CoordMode.Machine, machine_pos, feed_atc_xy)
@@ -611,7 +610,7 @@ def main():
             throwMessage(msg_clamp_error, "exit")()
     
         # opuść Agregat
-        aggregate_down()
+        # aggregate_down()
     
         # załącz czyszczenie stożka
         set_digital_output(OUT_CLEANCONE , True)
