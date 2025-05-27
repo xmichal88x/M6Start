@@ -13,6 +13,9 @@ timezone = time.localtime()
 
 mode = "normal" # normal or debug (for more info output)
 
+# warunek sprawdzania obecnosci narzędzia podczas pobierania
+check_tool == "nie"    # tak lub nie
+
 #-----------------------------------------------------------
 # Check status of pin 
 #-----------------------------------------------------------
@@ -67,9 +70,6 @@ spindle_state   =  d.getSpindleState()
 # tool_old_pocket_id  =  tool_old_id
 # tool_new_pocket_id  =  tool_new_id
 
-
-# warunek sprawdzania obecnosci narzędzia podczas pobierania
-if check_tool == "nie"    # tak lub nie
 
 # if debug is enabled, output some helpful information
 if mode == "debug":        # normal or debug (for more info output)
